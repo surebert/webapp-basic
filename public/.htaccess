@@ -4,7 +4,7 @@
 
 RewriteEngine On
 RewriteBase /
-#RewriteRule .* index.html
+RewriteRule .* index.html
 
 RewriteCond %{SCRIPT_FILENAME} !-f
 RewriteCond %{SCRIPT_FILENAME} !-d
