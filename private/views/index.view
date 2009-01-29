@@ -15,7 +15,8 @@ echo $this->html_head();
 	<img src="http://www.surebert.com/media/images/banner.png" alt="surebert banner" />
 	<p>This is just a demo homepage.  Once you read these instructions you can replace the contents of this page with your own homepage.  It is found at /private/views/index.view</p>
 	<p>There is a demo body based event handler in app.js that notifies you of the type of node you clicked when you click one.  You can use it as the basis for your own event handling scripts.</p>
-	<p>Need help using the javascript part of the surebert framework?  Visit <a href="http://www.surebert.com" title="Visit the home of the surebert framework">surebert.com</a>!!</p>
+	<p>Need help using the surebert framework?  Visit <a href="http://www.surebert.com" title="Visit the home of the surebert framework">surebert.com</a> or go directly to the wiki 
+	<a href="http://wiki.surebert.com" title="Visit the surebert wiki">wiki.surebert.com</a></p>
 	
 </div>
 <?php 
