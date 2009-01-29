@@ -9,7 +9,7 @@
  */
 
 //Define the path to the surebert framework
-define("SUREBERT_FRAMEWORK_PATH", "/var/www/html/sbf/2_5");
+//define("SUREBERT_FRAMEWORK_PATH", "/var/www/sbf/1.0");
 
 /**
  * You can use this space to define any globally accessible variable, constants and functions, 
