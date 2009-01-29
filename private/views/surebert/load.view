@@ -1,0 +1,4 @@
+<?
+
+$this->concat_files($this->request->args);
+?>

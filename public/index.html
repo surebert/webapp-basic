@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN""http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<title>Surebert &trade; Javascript Toolkit</title>
+<meta name="description" content="Paul Visco's Surebert &trade; is a complete solution for developing highly interactive javascript based client side applications. Surebert handles most of the inconsistencies between the major browsing platforms (IE, firefox and Safari) allowing the programmer to concentrate on what they want to accomplish instead of the tedious labor of how to make their code work in all the browsers. Surebert's style of javascripting encourages a clean separation of content, design and interactive scripting - making script upkeep, sharing, and debugging easier to handle. Surebert has been continuously developed and tested since September of 2004." />
+<meta name="keywords" content="surebert, paul visco, ajax, toolkit, javascript, oop" />
+<meta name="author" content="Paul Visco http://paul.estrip.org" />
+<style type="text/css">
+body{
+	font-family:tahoma, verdana, sans;
+	background-color:#b59e41;
+	color:white;
+	margin:10px;
+}
+
+h1{
+	color:#6e4511;
+	margin:10px;
+}
+
+p{
+	padding:10px;
+}
+
+pre{
+	background-color:black;
+	color:orange;
+	padding:10px;
+	margin:10px;
+	font-family:tahoma, verdana, sans;
+}
+
+</style>
+</head>
+<body>
+<h1>Beginning A Surebert Framework</h1>
+<p>Welcome to a new surebert framework.  If you have questions you can email paul.visco AT roswellpark.org</p>
+<ol>
+
+<li>
+<p>In order to get rid of this page, you need to go ahead and edit /public/.htaccess and comment change
+<pre>RewriteRule .* index.html</pre>
+to
+<pre>#RewriteRule .* index.html</pre>
+
+TIP: You can use this index.html as a static placeholder in an emergency, say if your DB is down.  You may want to keep it around and remember what to uncomment to turn it back on!
+</p>
+</li>
+
+<li>
+<p>If you do not already have a copy, you will need to download the framework from surebert.com and place it somewhere on your server, e.g. /var/www/html/framework
+
+<pre>
+svn export http://surebert.com/svn/framework/trunk /var/www/html/sbf/2_5
+</pre>
+</p>
+</li>
+
+<li>
+<p>Then set your SUREBERT_FRAMEWORK_PATH in /private/config/definitions.php to where you have the framework stored
+<pre>
+define("SUREBERT_FRAMEWORK_PATH", "/var/www/html/sbf/2_5");
+</pre>
+</p>
+</li>
+
+<li>
+<p>Visit your site, you should be ready to go!  Read up on the surebert framework and toolkit and <a href="http://surebert.com">surebert.com</a> and on the <a href="http://wiki.surebert.com">surebert wiki</a> 
+</p>
+</li>
+
+</ol>
+
+
+</body>
+</html>
