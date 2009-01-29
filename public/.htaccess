@@ -4,19 +4,7 @@
 
 RewriteEngine On
 RewriteBase /
-RewriteRule .* index.html
-
-#if anyone is still bookmarked an old framework page with .php or .asp extension, then redirect to home
-RewriteCond %{REQUEST_URI} !gateway.php$
-RewriteCond %{REQUEST_URI} \.(php|asp)$
-RewriteRule ^(.*)$ http://%{HTTP_HOST} [R=301,L]
-
-RewriteCond %{HTTP_HOST} !roswellpark\.org$
-RewriteRule ^(.*)$ http://%{HTTP_HOST}.roswellpark.org/$1 [R=301,L]
-
-RewriteCond %{REQUEST_URI} !gateway.php$
-RewriteCond %{HTTP_COOKIE} !rticketi
-RewriteRule .* http://ntlm-ticket-writer.roswellpark.org?r=%{HTTP_HOST}%{REQUEST_URI}?%{QUERY_STRING} [R=302,L]
+#RewriteRule .* index.html
 
 RewriteCond %{SCRIPT_FILENAME} !-f
 RewriteCond %{SCRIPT_FILENAME} !-d
@@ -73,4 +61,3 @@ FileETag MTime Size
 
 # Make sure proxies don't deliver the wrong content
 Header append Vary User-Agent env=!dont-vary
-
