@@ -6,7 +6,6 @@
  * pages are easy to edit from an HTML editors perspective
  */
 echo $this->html_head();
-print_r(App::$directory->current_user());
 
 ?>
 <body>
