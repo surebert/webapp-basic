@@ -48,23 +48,3 @@ pre{
 	width:600px;
 	margin:20px auto 20px auto;
 }
-
-.command_line{
-	color:green;
-	background-color:#000;
-}
-
-#subversion{
-	margin:10px;
-	padding:10px;
-	
-}
-
-#subversion h2{
-	color:white;
-	margin-bottom:10px;
-}
-
-#subversion p{
-	padding:5px;
-}

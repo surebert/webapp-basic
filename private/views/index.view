@@ -6,6 +6,7 @@
  * pages are easy to edit from an HTML editors perspective
  */
 echo $this->html_head();
+print_r(App::$directory->current_user());
 
 ?>
 <body>
@@ -15,17 +16,8 @@ echo $this->html_head();
 	<img src="http://www.surebert.com/media/images/banner.png" alt="surebert banner" />
 	<p>This is just a demo homepage.  Once you read these instructions you can replace the contents of this page with your own homepage.  It is found at /private/views/index.view</p>
 	<p>There is a demo body based event handler in app.js that notifies you of the type of node you clicked when you click one.  You can use it as the basis for your own event handling scripts.</p>
-	<p>Need help using the javascript part of the surebert framework?  Visit <a href="http://www.surebert.com" title="Visit the home of the surebert toolkit">surebert.com</a>!!</p>
+	<p>Need help using the javascript part of the surebert framework?  Visit <a href="http://www.surebert.com" title="Visit the home of the surebert framework">surebert.com</a>!!</p>
 	
-	<h1>Download extra framework classes</h1>
-	<p>In this example we are downloading sb_Strings.php  You could use the same technique to </p>
-	<div id="subversion" class="command_line">
-		<h2>Subversion Instructions</h2>
-		
-		<p>cd YOUR_WEB_APP/private/framework</p>
-		<p>svn list http://surebert.com/svn/sb_classes/trunk/</p>
-		<p>svn export http://surebert.com/svn/sb_classes/trunk//sb_Strings.php</p>
-	</div>
 </div>
 <?php 
 echo $this->include_javascript(Array('/surebert/load/sb', 'app.js'));
