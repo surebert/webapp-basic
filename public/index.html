@@ -49,10 +49,11 @@ TIP: You can use this index.html as a static placeholder in an emergency, say if
 </li>
 
 <li>
-<div>If you do not already have a copy, you will need to download the framework from surebert.com and place it somewhere on your server, e.g. /var/www/html/framework
+<div>If you do not already have a copy, you will need to download the framework from surebert.com and place it somewhere on your server.  Ani, obi, billy, and the fedora vmware image already have it installed in <b>/var/www/sbf</b>  You can find up to date deployment intructions on the <a href="http://wiki.surebert.com/index.php/Framework:quickstart_guide">surebert framework quickstart guide</a>.
+Make sure to make the diretcory and make it writeable first, if you don't have it.  You could also choose another location.
 
 <pre>
-svn export http://surebert.com/svn/sbf/trunk /var/www/html/sbf/2_5
+svn export http://surebert.com/svn/sbf/tags/1.0 /var/www/sbf/1.0
 </pre>
 </div>
 </li>
@@ -60,7 +61,7 @@ svn export http://surebert.com/svn/sbf/trunk /var/www/html/sbf/2_5
 <li>
 <div>Then set your SUREBERT_FRAMEWORK_PATH in /private/config/definitions.php to where you have the framework stored
 <pre>
-define("SUREBERT_FRAMEWORK_PATH", "/var/www/html/sbf/2_5");
+define("SUREBERT_FRAMEWORK_PATH", "/var/www/sbf/1.0");
 </pre>
 </div>
 </li>
@@ -70,7 +71,6 @@ define("SUREBERT_FRAMEWORK_PATH", "/var/www/html/sbf/2_5");
 </li>
 
 </ol>
-
 
 </body>
 </html>
