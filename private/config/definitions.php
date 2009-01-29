@@ -41,16 +41,6 @@
  * many of these.  Think, what do you need to run everywhere.  Everything is better as static methods on helper classes
  * as they only load when needed instead of always loading.
  * 
- * FINAL FILTERING OUTPUT
- * Here you can define a global filter_output($out) function that will filter all output one final time before hitting the page
- * Remember, each view object can have its own filter_output($out) method which occurs before this and
- * is only specific to that view.
- * 
- * <code>
- * function filter_output($out){
-		return str_replace('paul', 'tony', $out);
-	}
-	</code>
  */
 
 /**
