@@ -35,11 +35,25 @@ pre{
 </head>
 <body>
 <h1>Beginning A Surebert Framework</h1>
-<p>Welcome to a new surebert framework.  If you have questions you can email paul.visco AT roswellpark.org</p>
+<p>If you have questions you can email paul.visco AT roswellpark.org</p>
 <ol>
 
 <li>
-<div>In order to get rid of this page, you need to go ahead and edit /public/.htaccess and comment change
+<div>
+<p>To begin, make sure that you have a copy of the surebert framework deployed to your server.  Ani, obi, billy, and the fedora vmware image already have it installed in <b>/var/www/sbf</b>  You can find up to date deployment intructions on the <a href="http://wiki.surebert.com/index.php/Framework:quickstart_guide">surebert framework quickstart guide</a>.</p>
+</div>
+</li>
+
+<li>
+<div>Next, set your SUREBERT_FRAMEWORK_PATH in /private/config/definitions.php so that it matches the path that the sbf is deployed at. e.g.
+<pre>
+define("SUREBERT_FRAMEWORK_PATH", "/var/www/sbf/1.0");
+</pre>
+</div>
+</li>
+
+<li>
+<div>Finally, In order to get rid of this page, you need to go ahead and edit /public/.htaccess and comment change
 <pre>RewriteRule .* index.html</pre>
 to
 <pre>#RewriteRule .* index.html</pre>
@@ -49,25 +63,7 @@ TIP: You can use this index.html as a static placeholder in an emergency, say if
 </li>
 
 <li>
-<div>If you do not already have a copy, you will need to download the framework from surebert.com and place it somewhere on your server.  Ani, obi, billy, and the fedora vmware image already have it installed in <b>/var/www/sbf</b>  You can find up to date deployment intructions on the <a href="http://wiki.surebert.com/index.php/Framework:quickstart_guide">surebert framework quickstart guide</a>.
-Make sure to make the directory and make it writeable first, if you don't have it.  You could also choose another location.
-
-<pre>
-svn export http://surebert.com/svn/sbf/tags/1.0 /var/www/sbf/1.0
-</pre>
-</div>
-</li>
-
-<li>
-<div>Then set your SUREBERT_FRAMEWORK_PATH in /private/config/definitions.php to where you have the framework stored
-<pre>
-define("SUREBERT_FRAMEWORK_PATH", "/var/www/sbf/1.0");
-</pre>
-</div>
-</li>
-
-<li>
-<div>Visit your site, you should be ready to go!  Read up on the surebert framework and toolkit and <a href="http://surebert.com">surebert.com</a> and on the <a href="http://wiki.surebert.com">surebert wiki</a> </div>
+<div>Visit your site, you should be ready to go!  Read up on the surebert framework and toolkit @ <a href="http://surebert.com">surebert.com</a> and on the <a href="http://wiki.surebert.com">surebert wiki</a> </div>
 </li>
 
 </ol>
