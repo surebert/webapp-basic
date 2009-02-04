@@ -483,15 +483,18 @@ class Gateway{
 	
 	public static function sb_autoload($class_name){
 		
-		$root = SUREBERT_FRAMEWORK_PATH.'/';
-		if(strstr($class_name, 'sb_') || strstr($class_name, 'rp_')){
+		$class_name = str_replace('_', '/', $class_name);
+		
+		if(substr($class_name, 0, 2) == 'sb'){
+			$class_name = substr_replace($class_name, "", 0, 2);
+			require_once(SUREBERT_FRAMEWORK_SB_PATH.'/'.$class_name.'.php');
 			
-			if(!file_exists($root.$class_name.'.php')){
-				$class_name = str_replace('_', '/', $class_name);
-			}
-	
-			require_once($root.$class_name.'.php');
+		} else if(substr($class_name, 0, 2) == 'rp'){
+			$class_name = substr_replace($class_name, "", 0, 2);
+			require_once(SUREBERT_FRAMEWORK_RP_PATH.'/'.$class_name.'.php');
+			
 		} else if($class_name  == 'IndexView'){
+
 			require_once(ROOT.'/private/views/IndexView.php');
 		} else if(preg_match('~View$~', $class_name)){
 			$d = preg_replace("~[A-Z][a-z]+$~", "", $class_name);

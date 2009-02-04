@@ -45,9 +45,25 @@ pre{
 </li>
 
 <li>
-<div>Next, set your SUREBERT_FRAMEWORK_PATH in /private/config/definitions.php so that it matches the path that the sbf is deployed at. e.g.
+<div>Next, set your SUREBERT_FRAMEWORK_SB_PATH in /private/config/definitions.php so that it matches the path that the sbf is deployed at. e.g.
 <pre>
-define("SUREBERT_FRAMEWORK_PATH", "/var/www/sbf/1.0");
+define("SUREBERT_FRAMEWORK_SB_PATH", "/var/www/sbf/sb/1.0");
+</pre>
+</div>
+</li>
+
+<li>
+<div>Next, set your SUREBERT_TOOLKIT_PATH in /private/config/definitions.php so that it matches the path that the sbf is deployed at. e.g.
+<pre>
+define("SUREBERT_TOOLKIT_PATH", "/var/www/sbf/toolkit/4.64");
+</pre>
+</div>
+</li>
+
+<li>
+<div>OPTIONAL: If using Roswell Park rp modules, set your SUREBERT_FRAMEWORK_RP_PATH in /private/config/definitions.php so that it matches the path that the sbf is deployed at. e.g.
+<pre>
+define("SUREBERT_FRAMEWORK_RP_PATH", "/var/www/sbf/rp/1.0");
 </pre>
 </div>
 </li>
