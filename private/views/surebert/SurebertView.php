@@ -2,7 +2,7 @@
 /**
  * Creates concatenated javascript files for the surebert toolkit from the arguments it is fed
  * @author visco
- * @version 1.1 05/20/2008 01/25/2009
+ * @version 1.11 05/20/2008 02/04/2009
  *
  */
 class SurebertView extends sb_View{
@@ -34,7 +34,17 @@ class SurebertView extends sb_View{
 	 */
 	protected function concat_files($files = Array()){
 		
-		$this->add_javascript_headers();
+		$binary = preg_match("~\.(swf|gif)$~", $files[0], $match);
+		
+		if($binary){
+			if($match[1] == 'swf'){
+				header("Content-type: application/x-shockwave-flash");
+			} else if($match[1] == 'gif'){
+				header("Content-type: image/gif");
+			}
+		} else {
+			$this->add_javascript_headers();
+		}
 		
 		if($this->cache_enable){
 			$cache = isset(App::$cache) ? App::$cache : new sb_Cache_FileSystem();
@@ -50,14 +60,24 @@ class SurebertView extends sb_View{
 		$surebert = $this->default_files;
 		
 		foreach($files as $file){
-			$surebert[] = str_replace('.', '/', $file);
+			if($binary){
+				$surebert[] = $file;
+			} else {
+				
+				$surebert[] = str_replace('.', '/', $file).'.js';
+			}
 		}
 		
 		ob_start();
 		
 		foreach($surebert as $file){
-			$path = ROOT.'/public/surebert/'.$file.'.js';
-		
+			
+			$path = SUREBERT_TOOLKIT_PATH.'/'.$file;
+			
+			if($file == 'sb.js'){	
+				echo "var sbBase = '/surebert/load';\n";
+			}
+			
 			if(is_file($path)){
 				
 				readfile($path);
