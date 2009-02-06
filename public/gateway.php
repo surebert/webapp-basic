@@ -4,7 +4,7 @@
  * Initializes a surebert framework project - do not edit
  * 
  * @author: Paul Visco
- * @version: 2.54 10-01-08 01-28-09
+ * @version: 2.55 10-01-08 02-06-09
  *
  */
 
@@ -485,12 +485,12 @@ class Gateway{
 		
 		$class_name = str_replace('_', '/', $class_name);
 		
-		if(substr($class_name, 0, 2) == 'sb'){
-			$class_name = substr_replace($class_name, "", 0, 2);
+		if(substr($class_name, 0, 3) == 'sb/'){
+			$class_name = substr_replace($class_name, "", 0, 3);
 			require_once(SUREBERT_FRAMEWORK_SB_PATH.'/'.$class_name.'.php');
 			
-		} else if(substr($class_name, 0, 2) == 'rp'){
-			$class_name = substr_replace($class_name, "", 0, 2);
+		} else if(substr($class_name, 0, 3) == 'rp/'){
+			$class_name = substr_replace($class_name, "", 0, 3);
 			require_once(SUREBERT_FRAMEWORK_RP_PATH.'/'.$class_name.'.php');
 			
 		} else if($class_name  == 'IndexView'){
