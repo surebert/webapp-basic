@@ -4,7 +4,7 @@
  * Initializes a surebert framework project - do not edit
  * 
  * @author: Paul Visco
- * @version: 2.57 10-01-08 02-11-09
+ * @version: 2.58 10-01-08 02-12-09
  *
  */
 
@@ -456,23 +456,6 @@ class Gateway{
 	public static function load_main_request(){
 	
 		return self::load_view(self::$request);
-	}
-	
-	
-	public static function clear_cache(){
-		//$iterator = new RecursiveDirectoryIterator(ROOT.'/p');
-		foreach (new RecursiveIteratorIterator($iterator, RecursiveIteratorIterator::CHILD_FIRST) as $file)
-		{
-		  if ($file->isDir()) {
-		     rmdir($file->getPathname());
-		  } else {
-		     unlink($file->getPathname());
-		  }
-		}
-		if($del ==1){
-			rmdir($dir);
-		}
-		
 	}
 	
 	/**
