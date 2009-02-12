@@ -4,7 +4,7 @@
  * Initializes a surebert framework project - do not edit
  * 
  * @author: Paul Visco
- * @version: 2.55 10-01-08 02-06-09
+ * @version: 2.57 10-01-08 02-11-09
  *
  */
 
@@ -487,25 +487,24 @@ class Gateway{
 		
 		if(substr($class_name, 0, 3) == 'sb/'){
 			$class_name = substr_replace($class_name, "", 0, 3);
-			require_once(SUREBERT_FRAMEWORK_SB_PATH.'/'.$class_name.'.php');
+			require(SUREBERT_FRAMEWORK_SB_PATH.'/'.$class_name.'.php');
 			
 		} else if(substr($class_name, 0, 3) == 'rp/'){
 			$class_name = substr_replace($class_name, "", 0, 3);
-			require_once(SUREBERT_FRAMEWORK_RP_PATH.'/'.$class_name.'.php');
+			require(SUREBERT_FRAMEWORK_RP_PATH.'/'.$class_name.'.php');
 			
 		} else if($class_name  == 'IndexView'){
 
-			require_once(ROOT.'/private/views/IndexView.php');
+			require(ROOT.'/private/views/IndexView.php');
 		} else if(preg_match('~View$~', $class_name)){
 			$d = preg_replace("~[A-Z][a-z]+$~", "", $class_name);
-			require_once(ROOT.'/private/views/'.strtolower($d).'/'.$class_name.'.php');
-		}  else {
+			require(ROOT.'/private/views/'.strtolower($d).'/'.$class_name.'.php');
+		} else if(file_exists(ROOT.'/private/models/'.$class_name.'.php')){
 			
-			if(!file_exists(ROOT.'/private/models/'.$class_name.'.php')){
-				$class_name = str_replace('_', '/', $class_name);
-			}
+			require(ROOT.'/private/models/'.$class_name.'.php');
+		} else if(strstr($class_name, 'PHPUnit') && defined('PHPUNIT_PATH')){
 			
-			require_once(ROOT.'/private/models/'.$class_name.'.php');
+			require(PHPUNIT_PATH.$class_name.'.php');
 		}
 	}
 	
