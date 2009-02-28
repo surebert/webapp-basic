@@ -9,8 +9,8 @@
  */
 
 //Define the path to the surebert framework
-//define("SUREBERT_FRAMEWORK_SB_PATH", "/var/www/sbf/sb/1.0");
-//define("SUREBERT_FRAMEWORK_RP_PATH", "/var/www/sbf/rp/1.0");
+//define("SUREBERT_FRAMEWORK_SB_PATH", "/var/www/sbf/sb/1.1");
+//define("SUREBERT_FRAMEWORK_RP_PATH", "/var/www/sbf/rp/1.1");
 //define("SUREBERT_TOOLKIT_PATH", "/var/www/sbf/toolkit/4.64");
 
 /**
