@@ -4,7 +4,7 @@
  * Initializes a surebert framework project - do not edit
  * 
  * @author: Paul Visco
- * @version: 2.58 10-01-08 02-12-09
+ * @version: 2.59 10-01-08 03-09-09
  *
  */
 
@@ -20,7 +20,6 @@ define("ROOT", str_replace('/public/gateway.php', '', str_replace("\\", "/", __F
 /**
  * Loads the .phtml file that corresponds to the request
  * @author visco
- *
  */
 class sb_View{
 	
@@ -119,15 +118,21 @@ class sb_View{
 	 * @param String $template the template to use e.g. /dance
 	 */
 	final public function render($template=''){
-		
+	
 		$output = '';
 		$path = $this->request->path;
 		
-		if(count($this->request->path_array) == 1){
+		if(!isset($this->request->path_array[1]) && empty($template)){
 			$path .='/'.$this->default_file;
 		} else if(!empty($template)){
+			
 			$this->included = true;
-			$path = preg_replace("~/".$this->request->path_array[1]."$~", $template, $path);
+			
+			if(isset($this->request->path_array[1])){
+				$path = preg_replace("~/".$this->request->path_array[1]."$~", $template, $path);
+			} else {
+				$path .= $template;
+			}
 		}
 	
 		$pwd = ROOT.'/private/views'.$path.'.view';
