@@ -40,30 +40,31 @@ pre{
 
 <li>
 <div>
-<p>To begin, make sure that you have a copy of the surebert framework deployed to your server.  Ani, obi, billy, and the fedora vmware image already have it installed in <b>/var/www/sbf</b>  You can find up to date deployment intructions on the <a href="http://wiki.surebert.com/index.php/Framework:quickstart_guide">surebert framework quickstart guide</a>.</p>
+<p>To begin, make sure that you have a copy of the surebert framework deployed to your server.  Ani, obi, billy, and the fedora vmware image already have it installed in <b>/var/www/sbf</b>  You can find up to date deployment intructions on the <a href="http://wiki.surebert.com/index.php/Framework:SBF_Deployment_Guide">surebert framework deployment guide</a>.</p>
+
 </div>
 </li>
 
 <li>
-<div>Next, set your SUREBERT_FRAMEWORK_SB_PATH in /private/config/definitions.php so that it matches the path that the sbf is deployed at. e.g.
+<div>Next, set your SUREBERT_FRAMEWORK_SB_PATH in /private/config/definitions.php so that it matches the path that the sbf is deployed at. e.g. replace x.x with the version you deployed
 <pre>
-define("SUREBERT_FRAMEWORK_SB_PATH", "/var/www/sbf/sb/1.0");
+define("SUREBERT_FRAMEWORK_SB_PATH", "/var/www/sbf/sb/x.x");
 </pre>
 </div>
 </li>
 
 <li>
-<div>Next, set your SUREBERT_TOOLKIT_PATH in /private/config/definitions.php so that it matches the path that the sbf is deployed at. e.g.
+<div>Next, set your SUREBERT_TOOLKIT_PATH in /private/config/definitions.php so that it matches the path that the sbf is deployed at. e.g. replace x.x with the version you deployed
 <pre>
-define("SUREBERT_TOOLKIT_PATH", "/var/www/sbf/toolkit/4.64");
+define("SUREBERT_TOOLKIT_PATH", "/var/www/sbf/toolkit/x.x");
 </pre>
 </div>
 </li>
 
 <li>
-<div>OPTIONAL: If using Roswell Park rp modules, set your SUREBERT_FRAMEWORK_RP_PATH in /private/config/definitions.php so that it matches the path that the sbf is deployed at. e.g.
+<div>OPTIONAL: If using Roswell Park rp modules, set your SUREBERT_FRAMEWORK_RP_PATH in /private/config/definitions.php so that it matches the path that the sbf is deployed at. e.g. replace x.x with the version you deployed
 <pre>
-define("SUREBERT_FRAMEWORK_RP_PATH", "/var/www/sbf/rp/1.0");
+define("SUREBERT_FRAMEWORK_RP_PATH", "/var/www/sbf/rp/x.x");
 </pre>
 </div>
 </li>
