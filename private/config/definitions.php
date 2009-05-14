@@ -8,12 +8,12 @@
  * </code>
  */
 
-//Define the path to the surebert framework
-//define("SUREBERT_FRAMEWORK_SB_PATH", "/var/www/sbf/sb/1.1");
-//define("SUREBERT_TOOLKIT_PATH", "/var/www/sbf/toolkit/4.64");
+//Define the path to the surebert framework -replace x.x with the versions you downloaded
+//define("SUREBERT_FRAMEWORK_SB_PATH", "/var/www/sbf/sb/tags/x.x");
+//define("SUREBERT_TOOLKIT_PATH", "/var/www/sbf/toolkit/tags/x.x");
 
 //you can delete the next line if not using internal roswellpark specific modules
-//define("SUREBERT_FRAMEWORK_RP_PATH", "/var/www/sbf/rp/1.1");
+//define("SUREBERT_FRAMEWORK_RP_PATH", "/var/www/sbf/rp/tags/x.x");
 
 /**
  * You can use this space to define any globally accessible variable, constants and functions, 
