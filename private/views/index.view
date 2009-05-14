@@ -1,10 +1,12 @@
 <? 
-
 /**
  * .view templates should have as little PHP processing as possible, you should be
  * doing the "heavy lifting" in the models methods or ViewClasses so that the .view template 
  * pages are easy to edit from an HTML editors perspective
  */
+
+ //set $this type for code completion in netbeans
+/* @var $this IndexView */
 echo $this->html_head();
 
 ?>

@@ -10,7 +10,7 @@ class IndexView extends sb_View_XHTML{
 	 * This sets the page title for an .view extending sb_HTMLView
 	 * @var string
 	 */
-	protected $title = 'My App Homepage';
+	public $title = 'My App Homepage';
 	
 	/**
 	 * Override the default css style sheets loaded for this page.  The default is to load just app.css
