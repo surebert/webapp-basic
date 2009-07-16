@@ -115,9 +115,9 @@ class sb_View {
      * @todo should path and path arrray be temporaily reset
      * @todo are we still going with this->request->get or do we just want this get?;(
      */
-    public function render($template='') {
+//    public function render($template='') {
 
-    //set default path
+        //set default path
         $path = $this->request->path;
 
         //if there is a template render that
@@ -150,7 +150,7 @@ class sb_View {
         $this->template = $template;
 
         //use template not found if view not found
-        if(!is_file($pwd) && $on_before_render) {
+        if(!is_file($pwd)) {
             $this->template_not_found(basename($path));
 
         } else if($on_before_render) {
