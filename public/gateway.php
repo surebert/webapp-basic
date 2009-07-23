@@ -475,8 +475,17 @@ class Gateway {
 
                 if(method_exists($model, $action) && in_array('sb_Magic_Model', class_implements($model, true))){
                     $class = new ReflectionClass($model);
-                
-                    if(!in_array($action, $class->getStaticPropertyValue('secret_methods'))){
+
+                    //check for secret methods that are not servable
+                    if($class->hasProperty('secret_methods')){
+                        $secret_methods = $class->getStaticPropertyValue('secret_methods');
+                    } else {
+                        $secret_methods = Array();
+                    }
+
+                    $secret_methods[] = 'filter_output';
+
+                    if(!in_array($action, $secret_methods)){
                         if($class->hasProperty('input_args_delimiter')){
                             $iad = $class->getStaticPropertyValue('input_args_delimiter');
                         }
@@ -669,13 +678,18 @@ class Gateway {
     public static function exception_handler(Exception $e){
 
         $s = Gateway::$command_line ? "\n" : '<br />';
-        echo 'Code: '.$e->getCode().$s.
-            'Message: '.$e->getMessage().$s.
-            'Location: '.$e->getFile().$s.
-            'Line: '.$e->getLine().$s.
-            'Trace: '.$e->getTraceAsString();
+        $m = 'Code: '.$e->getCode()."\n".
+            'Message: '.$e->getMessage()."\n".
+            'Location: '.$e->getFile()."\n".
+            'Line: '.$e->getLine()."\n".
+            "Trace: \n\t".str_replace("\n", "\n\t",$e->getTraceAsString());
+    
+        if(Gateway::$command_line){
+            file_put_contents('php://stderr', "\n".$m."\n");
+        } else {
+            echo '<div style="background-color:red;color:white;padding:10px;">'.nl2br(str_replace("\t", "&nbsp;&nbsp;&nbsp;&nbsp;", $m)).'</div>';
+        }
     }
-
 }
 
 if(isset($argv)) {
