@@ -113,7 +113,7 @@ class sb_View {
     /**
      * Fires when view template is not found
      */
-    protected function template_not_found() {
+    protected function template_not_found($template) {
 
         header("HTTP/1.0 404 Not Found");
         if(is_file(ROOT.'/private/views/error/404.view')) {
@@ -267,7 +267,7 @@ class sb_Request {
      * @param $request The string request with args e.g. /_surebert/custom/strings.numPad
      */
     public function __construct($request) {
-       
+
         if(preg_match("~\?(.*)$~", $request, $match)) {
             $request = preg_replace("~\?.*$~", '', $request);
             if(isset($match[1])) {
@@ -489,7 +489,7 @@ class Gateway {
                         if($class->hasProperty('input_args_delimiter')){
                             $iad = $class->getStaticPropertyValue('input_args_delimiter');
                         }
-                        
+
                         //explode input args
                         self::$request->set_input_args_delimiter(isset($iad) ? $iad : '/');
 
@@ -499,7 +499,7 @@ class Gateway {
                         //set up arguments to pass to function
                         $input_method = isset($instance->input_method) ? $instance->input_method : 'post';
 
-                        
+
                         //run the method and return the data
                         $args = self::$request->{$input_method};
                         $input_as_array = (isset($instance->input_as_array) && $instance->input_as_array) ? true : false;
@@ -694,7 +694,7 @@ class Gateway {
             'Location: '.$e->getFile()."\n".
             'Line: '.$e->getLine()."\n".
             "Trace: \n\t".str_replace("\n", "\n\t",$e->getTraceAsString());
-    
+
         if(Gateway::$command_line){
             file_put_contents('php://stderr', "\n".$m."\n");
         } else {
