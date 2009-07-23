@@ -405,13 +405,13 @@ class Gateway {
      */
     public static $logger;
 
-    /**
-     * Loads a view for rendering
-     *
-     * @author: Paul Visco
-     *
-     */
-    public static function render_view($request) {
+     /**
+      * Loads a view for rendering
+      * @param mixed $request Either an instance of sb_Request or a string with the path to the view e.g. /user/run
+      * @param object $model Optional The model used in the view
+      * @return string The rendered view data
+      */
+    public static function render_view($request, $model='') {
 
         if($request instanceof sb_Request && method_exists('App', 'filter_all_input')) {
 
@@ -439,6 +439,7 @@ class Gateway {
         $viewClass = (is_file($viewFile)) ? $viewClass : 'sb_View';
 
         $view = new $viewClass();
+        $view->model = $model;
 
         if($request != Gateway::$request) {
 
@@ -456,6 +457,7 @@ class Gateway {
         return $view->render();
 
     }
+
 
     /**
      * Loads the main request
