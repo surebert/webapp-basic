@@ -489,6 +489,7 @@ class Gateway {
 
                         //set up arguments to pass to function
                         $input_method = isset($instance->input_method) ? $instance->input_method : 'post';
+
                         $args = array_values(self::$request->{$input_method});
 
                         if(isset($instance->logger) && $instance->logger instanceof sb_Logger_Base){
@@ -566,7 +567,7 @@ class Gateway {
 
             //if argv3 set POST OR GET based on argv2
             if(isset($argv[3])){
-                if($argv[3] == 'POST'){
+                if(strcasecmp($argv[2], 'post') == 0){
                     parse_str($argv[3], $_POST);
                 } else {
                     $request.='?'.$argv[3];
@@ -728,7 +729,5 @@ if(Gateway::$logger instanceof sb_Logger_Base){
     Gateway::$logger->add_log_types(Array('gateway'));
     Gateway::$logger->gateway(((microtime(true)-$sb_start)*1000)."ms\t".(memory_get_usage()/1024)."kb\n".print_r(Gateway::$request, 1));
 }
-
-echo "\n".((microtime(true)-$sb_start)*1000)."\n";
 
 ?>
