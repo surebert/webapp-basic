@@ -4,7 +4,7 @@
  * Initializes a surebert framework project - do not edit
  *
  * @author: Paul Visco
- * @version: 2.63 10-01-2008 07-13-2009
+ * @version: 3.0 10-01-2008 07-22-2009
  *
  */
 
@@ -16,6 +16,22 @@ ob_start();
 
 //replaces windows slashes that were messing up paths
 define("ROOT", str_replace('/public/gateway.php', '', str_replace("\\", "/", __FILE__)));
+
+//script start time
+$sb_start = microtime(true);
+
+/**
+ * A special type of model that takes in requests and returns data directly
+ */
+interface sb_Magic_Model{
+
+    /**
+     * Filter the output before it is passed back to the Gateway
+     * @param string $out
+     */
+    public function filter_output($out);
+
+}
 
 /**
  * Loads the .phtml file that corresponds to the request
@@ -115,7 +131,7 @@ class sb_View {
      * @todo should path and path arrray be temporaily reset
      * @todo are we still going with this->request->get or do we just want this get?;(
      */
-//    public function render($template='') {
+     public function render($template='') {
 
         //set default path
         $path = $this->request->path;
@@ -251,7 +267,7 @@ class sb_Request {
      * @param $request The string request with args e.g. /_surebert/custom/strings.numPad
      */
     public function __construct($request) {
-
+       
         if(preg_match("~\?(.*)$~", $request, $match)) {
             $request = preg_replace("~\?.*$~", '', $request);
             if(isset($match[1])) {
@@ -384,6 +400,12 @@ class Gateway {
     public static $command_line = false;
 
     /**
+     * An instance of a logger used to log all gateway requests during debugging
+     * @var sb_Logger_Base
+     */
+    public static $logger;
+
+    /**
      * Loads a view for rendering
      *
      * @author: Paul Visco
@@ -397,8 +419,8 @@ class Gateway {
             App::filter_all_input($request->post);
 
         } else if(is_string($request)) {
-                $request = new sb_Request($request);
-            }
+            $request = new sb_Request($request);
+        }
 
         if(!$request instanceof sb_Request) {
             trigger_error('$request must be a sb_Request instance');
@@ -442,6 +464,48 @@ class Gateway {
      */
     public static function render_main_request() {
 
+        $p = self::$request->path_array;
+
+        //see if there is an model/action possibility
+        if(isset($p[0]) && isset($p[1])){
+            $model = ucwords($p[0]);
+            $action = $p[1];
+
+            if(class_exists($model)){
+
+                if(method_exists($model, $action) && in_array('sb_Magic_Model', class_implements($model, true))){
+
+                    //php 5.3 required
+                    if(!in_array($action, $model::$secret_methods)){
+
+                        $inp_arg_del = isset($model::$input_args_delimiter) ? $model::$input_args_delimiter : '/';
+
+                        //explode input args
+                        self::$request->set_input_args_delimiter($inp_arg_del);
+
+                        //create instance of model
+                        $instance = new $model(self::$request->args);
+
+                        //set up arguments to pass to function
+                        $input_method = isset($instance->input_method) ? $instance->input_method : 'post';
+                        $args = array_values(self::$request->{$input_method});
+
+                        if(isset($instance->logger) && $instance->logger instanceof sb_Logger_Base){
+                            $instance->logger->add_log_types(Array($model));
+                            $instance->logger->{$model}($action."(".implode(",", $args).');');
+                        }
+
+                        //run the method and return the data
+                        $data = call_user_func_array(array($instance, $action), $args);
+
+                        return $instance->filter_output($data);
+                    }
+                }
+            }
+
+        }
+
+        //otherwise assume view and render accordingly
         return self::render_view(self::$request);
     }
 
@@ -488,14 +552,32 @@ class Gateway {
         if(!empty($_SERVER['REQUEST_URI'])) {
             $request = $_SERVER['REQUEST_URI'];
         } else if(isset($argv)) {
-            $request =  $argv[1];
+
+            $request = $argv[1];
+
         } else {
             die("Path not found! Application cannot run in this context");
         }
 
+
         //requires variable $_GET, $_POST, $_COOKIE, $_FILES, $_SERVER['REMOTE_ADDR'], $_SERVER['HTTP_USER_AGENT']
-        if (isset($argv[2]) && is_file($argv[2])) {
-            require_once($argv[2]);
+        if (isset($argv[2])){
+
+            //if argv3 set POST OR GET based on argv2
+            if(isset($argv[3])){
+                if($argv[3] == 'POST'){
+                    parse_str($argv[3], $_POST);
+                } else {
+                    $request.='?'.$argv[3];
+                }
+
+            //otherwise load file
+            } else if(is_file($argv[2])) {
+
+                require_once($argv[2]);
+                $request.='?'.http_build_query($_GET);
+            }
+
         }
 
         //allow user to override determination of remote_addr, e.g. using proxy X-FORWARDED-FOR etc
@@ -567,11 +649,54 @@ class Gateway {
 
     }
 
+    /**
+     * Converts errors into exceptions
+     * @param integer $code The error code
+     * @param string $message The error message
+     * @param string $file The file the error occurred in
+     * @param integer $line The line the error occurred on
+     */
+    public static function error_handler($code, $message, $file, $line) {
+        throw new sb_Exception($code, $message, $file, $line);
+    }
+
+    /**
+     * Handles acceptions and turns them into strings
+     * @param Exception $e
+     */
+    public static function exception_handler(Exception $e){
+
+        $s = Gateway::$command_line ? "\n" : '<br />';
+        echo 'Code: '.$e->getCode().$s.
+            'Message: '.$e->getMessage().$s.
+            'Location: '.$e->getFile().$s.
+            'Line: '.$e->getLine().$s.
+            'Trace: '.$e->getTraceAsString();
+    }
+
 }
 
 if(isset($argv)) {
     Gateway::$command_line = true;
 }
+
+/**
+ * Used to throw custom exceptions
+ */
+class sb_Exception extends Exception{
+
+    private $context = null;
+
+    public function __construct($code, $message, $file, $line, $context = null){
+        parent::__construct($message, $code);
+        $this->file = $file;
+        $this->line = $line;
+        $this->context = $context;
+    }
+};
+
+set_error_handler('Gateway::error_handler');
+set_exception_handler('Gateway::exception_handler');
 
 //initialize the gateway
 Gateway::init();
@@ -585,7 +710,7 @@ Gateway::set_main_request((isset($argv) ? $argv : null));
 //include site based definitions/global functions
 Gateway::file_require('/private/config/definitions.php');
 
-//load the main request
+//load the main request as view or magic model
 $output = Gateway::render_main_request();
 
 //filter the output if required and display it
@@ -596,4 +721,11 @@ if(method_exists('App', "filter_all_output")) {
 }
 
 ob_flush();
+
+if(Gateway::$logger instanceof sb_Logger_Base){
+
+    Gateway::$logger->add_log_types(Array('gateway'));
+    Gateway::$logger->gateway(((microtime(true)-$sb_start)*1000)."ms\t".(memory_get_usage()/1024)."kb\n".print_r(Gateway::$request, 1));
+}
+
 ?>
