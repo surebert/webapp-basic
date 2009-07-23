@@ -474,14 +474,15 @@ class Gateway {
             if(class_exists($model)){
 
                 if(method_exists($model, $action) && in_array('sb_Magic_Model', class_implements($model, true))){
-
-                    //php 5.3 required
-                    if(!in_array($action, $model::$secret_methods)){
-
-                        $inp_arg_del = isset($model::$input_args_delimiter) ? $model::$input_args_delimiter : '/';
-
+                    $class = new ReflectionClass($model);
+                
+                    if(!in_array($action, $class->getStaticPropertyValue('secret_methods'))){
+                        if($class->hasProperty('input_args_delimiter')){
+                            $iad = $class->getStaticPropertyValue('input_args_delimiter');
+                        }
+                        
                         //explode input args
-                        self::$request->set_input_args_delimiter($inp_arg_del);
+                        self::$request->set_input_args_delimiter(isset($iad) ? $iad : '/');
 
                         //create instance of model
                         $instance = new $model(self::$request->args);
@@ -727,5 +728,7 @@ if(Gateway::$logger instanceof sb_Logger_Base){
     Gateway::$logger->add_log_types(Array('gateway'));
     Gateway::$logger->gateway(((microtime(true)-$sb_start)*1000)."ms\t".(memory_get_usage()/1024)."kb\n".print_r(Gateway::$request, 1));
 }
+
+echo "\n".((microtime(true)-$sb_start)*1000)."\n";
 
 ?>
