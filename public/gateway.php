@@ -499,15 +499,26 @@ class Gateway {
                         //set up arguments to pass to function
                         $input_method = isset($instance->input_method) ? $instance->input_method : 'post';
 
-                        $args = array_values(self::$request->{$input_method});
+                        
+                        //run the method and return the data
+                        $args = self::$request->{$input_method};
+                        $input_as_array = (isset($instance->input_as_array) && $instance->input_as_array) ? true : false;
+                        if($input_as_array){
+                            $data = $instance->$action($args);
+                        } else {
+                            $data = call_user_func_array(array($instance, $action), array_values($args));
+                        }
 
                         if(isset($instance->logger) && $instance->logger instanceof sb_Logger_Base){
                             $instance->logger->add_log_types(Array($model));
-                            $instance->logger->{$model}($action."(".implode(",", $args).');');
-                        }
 
-                        //run the method and return the data
-                        $data = call_user_func_array(array($instance, $action), $args);
+                            if($input_as_array){
+                                $args = json_encode($args);
+                            } else {
+                                $args = implode(",", $args);
+                            }
+                            $instance->logger->{$model}($action."(".$args.');');
+                        }
 
                         return $instance->filter_output($data);
                     }
@@ -687,7 +698,7 @@ class Gateway {
         if(Gateway::$command_line){
             file_put_contents('php://stderr', "\n".$m."\n");
         } else {
-            echo '<div style="background-color:red;color:white;padding:10px;">'.nl2br(str_replace("\t", "&nbsp;&nbsp;&nbsp;&nbsp;", $m)).'</div>';
+            echo '<div style="background-color:red;padding:10px;color:#FFF;">'.nl2br(str_replace("\t", "&nbsp;&nbsp;&nbsp;&nbsp;", $m)).'</div>';
         }
     }
 }
