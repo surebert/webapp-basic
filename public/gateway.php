@@ -518,7 +518,6 @@ class Gateway {
                         $instance = new $model(self::$request->args);
 
                         //set up arguments to pass to function
-                        var_dump($input_as_array);
                         $args = self::$request->{$http_method};
 
 
