@@ -4,7 +4,7 @@
  * Initializes a surebert framework project - do not edit
  *
  * @author: Paul Visco
- * @version: 3.0 10-01-2008 07-22-2009
+ * @version: 3.01 10-01-2008 07-25-2009
  *
  */
 
@@ -458,6 +458,9 @@ class Gateway {
 
     }
 
+    private static function render_magic_model(){
+
+    }
 
     /**
      * Loads the main request
@@ -476,35 +479,49 @@ class Gateway {
             if(class_exists($model)){
 
                 if(method_exists($model, $action) && in_array('sb_Magic_Model', class_implements($model, true))){
-                    $class = new ReflectionClass($model);
 
-                    //check for secret methods that are not servable
-                    if($class->hasProperty('secret_methods')){
-                        $secret_methods = $class->getStaticPropertyValue('secret_methods');
-                    } else {
-                        $secret_methods = Array();
-                    }
+                    $reflection = new ReflectionMethod($model, $action);
 
-                    $secret_methods[] = 'filter_output';
+                    //check for phpdocs
+                    $docs = $reflection->getDocComment();
 
-                    if(!in_array($action, $secret_methods)){
-                        if($class->hasProperty('input_args_delimiter')){
-                            $iad = $class->getStaticPropertyValue('input_args_delimiter');
+                    //get class default method
+                    $http_method = isset($instance->http_method) ? $instance->http_method : 'post';
+
+                    //determine how args are passed to method
+                    $input_as_array = (isset($instance->input_as_array) && $instance->input_as_array) ? true : false;
+
+                    $secret = false;
+
+                    if(!empty($docs)){
+                        if(preg_match("~@http_method (get|post)~", $docs, $match)){
+                            $http_method = $match[1];
                         }
 
+                        if(preg_match("~@input_as_array (true|false)~", $docs, $match)){
+                            $input_as_array = $match[1] == 'true' ? true : false;
+                        }
+
+                        if(preg_match("~@secret (true|false)~", $docs, $match)){
+
+                            $secret = $match[1] == 'true' ? true : false;
+                        }
+
+                    }
+
+                    if(!$secret){
+
                         //explode input args
-                        self::$request->set_input_args_delimiter(isset($iad) ? $iad : '/');
+                        self::$request->set_input_args_delimiter('/');
 
                         //create instance of model
                         $instance = new $model(self::$request->args);
 
                         //set up arguments to pass to function
-                        $input_method = isset($instance->input_method) ? $instance->input_method : 'post';
+                        var_dump($input_as_array);
+                        $args = self::$request->{$http_method};
 
 
-                        //run the method and return the data
-                        $args = self::$request->{$input_method};
-                        $input_as_array = (isset($instance->input_as_array) && $instance->input_as_array) ? true : false;
                         if($input_as_array){
                             $data = $instance->$action($args);
                         } else {
@@ -523,6 +540,8 @@ class Gateway {
                         }
 
                         return $instance->filter_output($data);
+                    } else {
+                        return Gateway::render_view('/error/404.view');
                     }
                 }
             }
@@ -724,8 +743,8 @@ class sb_Exception extends Exception{
     }
 };
 
-set_error_handler('Gateway::error_handler');
-set_exception_handler('Gateway::exception_handler');
+//set_error_handler('Gateway::error_handler');
+//set_exception_handler('Gateway::exception_handler');
 
 //initialize the gateway
 Gateway::init();
