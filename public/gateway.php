@@ -742,8 +742,8 @@ class sb_Exception extends Exception{
     }
 };
 
-//set_error_handler('Gateway::error_handler');
-//set_exception_handler('Gateway::exception_handler');
+set_error_handler('Gateway::error_handler');
+set_exception_handler('Gateway::exception_handler');
 
 //initialize the gateway
 Gateway::init();
