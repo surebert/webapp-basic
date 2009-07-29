@@ -491,7 +491,7 @@ class Gateway {
                     //determine how args are passed to method
                     $input_as_array = (isset($instance->input_as_array) && $instance->input_as_array) ? true : false;
 
-                    $secret = false;
+                    $servable = false;
 
                     if(!empty($docs)){
                         if(preg_match("~@http_method (get|post)~", $docs, $match)){
@@ -502,14 +502,14 @@ class Gateway {
                             $input_as_array = $match[1] == 'true' ? true : false;
                         }
 
-                        if(preg_match("~@secret (true|false)~", $docs, $match)){
+                        if(preg_match("~@servable (true|false)~", $docs, $match)){
 
-                            $secret = $match[1] == 'true' ? true : false;
+                            $servable = $match[1] == 'true' ? true : false;
                         }
 
                     }
 
-                    if(!$secret){
+                    if(!$servable){
 
                         //explode input args
                         self::$request->set_input_args_delimiter('/');
