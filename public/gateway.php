@@ -4,7 +4,7 @@
  * Initializes a surebert framework project - do not edit
  *
  * @author: Paul Visco
- * @version: 3.01 10-01-2008 07-25-2009
+ * @version: 3.02 10-01-2008 08-03-2009
  *
  */
 
@@ -400,6 +400,12 @@ class Gateway {
     public static $command_line = false;
 
     /**
+     * Is the gateway serving a magic model
+     * @var mixed boolean false or string of the class being served
+     */
+    public static $magic_model = false;
+
+    /**
      * An instance of a logger used to log all gateway requests during debugging
      * @var sb_Logger_Base
      */
@@ -486,10 +492,10 @@ class Gateway {
                     $docs = $reflection->getDocComment();
 
                     //get class default method
-                    $http_method = isset($instance->http_method) ? $instance->http_method : 'post';
+                    $http_method = 'post';
 
                     //determine how args are passed to method
-                    $input_as_array = (isset($instance->input_as_array) && $instance->input_as_array) ? true : false;
+                    $input_as_array = false;
 
                     $servable = false;
 
@@ -509,7 +515,9 @@ class Gateway {
 
                     }
 
-                    if(!$servable){
+                    if($servable){
+                        //notify which model is being served
+                        Gateway::$magic_model = $model;
 
                         //explode input args
                         self::$request->set_input_args_delimiter('/');
@@ -520,6 +528,10 @@ class Gateway {
                         //set up arguments to pass to function
                         $args = self::$request->{$http_method};
 
+                        //pass thru input filter if it exists
+                        if(method_exists($instance, 'filter_input')){
+                            $args = $instance->filter_input($args);
+                        }
 
                         if($input_as_array){
                             $data = $instance->$action($args);
@@ -775,4 +787,4 @@ if(Gateway::$logger instanceof sb_Logger_Base){
     Gateway::$logger->gateway(((microtime(true)-$sb_start)*1000)."ms\t".(memory_get_usage()/1024)."kb\n".print_r(Gateway::$request, 1));
 }
 
-?>
+?>od
