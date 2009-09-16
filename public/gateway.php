@@ -787,4 +787,4 @@ if(Gateway::$logger instanceof sb_Logger_Base){
     Gateway::$logger->gateway(((microtime(true)-$sb_start)*1000)."ms\t".(memory_get_usage()/1024)."kb\n".print_r(Gateway::$request, 1));
 }
 
-?>od
+?>
