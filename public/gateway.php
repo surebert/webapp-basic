@@ -4,7 +4,7 @@
  * Initializes a surebert framework project - do not edit
  *
  * @author: Paul Visco
- * @version: 3.02 10-01-2008 08-03-2009
+ * @version: 3.03 10-01-2008 08-03-2009
  *
  */
 
@@ -711,7 +711,11 @@ class Gateway {
      * @param integer $line The line the error occurred on
      */
     public static function error_handler($code, $message, $file, $line) {
-        throw new sb_Exception($code, $message, $file, $line);
+        if(in_array(ini_get('display_errors'), Array('Off', 'off', '0'))){
+			return false;
+		}
+		
+		throw new sb_Exception($code, $message, $file, $line);
     }
 
     /**
