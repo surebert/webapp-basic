@@ -4,7 +4,7 @@
  * Initializes a surebert framework project - do not edit
  *
  * @author: Paul Visco
- * @version: 3.03 10-01-2008 08-03-2009
+ * @version: 3.04 10-01-2008 10-27-2009
  *
  */
 
@@ -13,7 +13,6 @@
 #####################################################################
 
 ob_start();
-
 //replaces windows slashes that were messing up paths
 define("ROOT", str_replace('/public/gateway.php', '', str_replace("\\", "/", __FILE__)));
 
@@ -390,7 +389,7 @@ class Gateway {
      *
      * @var string
      */
-    public static $remote_addr = '127.0.0.1';
+    public static $remote_addr;
 
     /**
      * If the request comes from the command line
@@ -638,7 +637,7 @@ class Gateway {
         if(method_exists('App', 'set_remote_addr')) {
             self::$remote_addr = App::set_remote_addr();
         } else {
-            self::$remote_addr = isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : self::$remote_addr;
+            self::$remote_addr = isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : $_SERVER['SERVER_ADDR'];
         }
 
         self::$agent = (isset($_SERVER['HTTP_USER_AGENT']) && $_SERVER['HTTP_USER_AGENT'] != 'command line') ? $_SERVER['HTTP_USER_AGENT'] : self::$agent;
@@ -711,11 +710,7 @@ class Gateway {
      * @param integer $line The line the error occurred on
      */
     public static function error_handler($code, $message, $file, $line) {
-        if(in_array(ini_get('display_errors'), Array('Off', 'off', '0'))){
-			return false;
-		}
-		
-		throw new sb_Exception($code, $message, $file, $line);
+        throw new sb_Exception($code, $message, $file, $line);
     }
 
     /**
@@ -723,6 +718,10 @@ class Gateway {
      * @param Exception $e
      */
     public static function exception_handler(Exception $e){
+
+		if(in_array(ini_get('display_errors'), Array('Off', 'off', '0'))){
+			return false;
+		}
 
         $s = Gateway::$command_line ? "\n" : '<br />';
         $m = 'Code: '.$e->getCode()."\n".
