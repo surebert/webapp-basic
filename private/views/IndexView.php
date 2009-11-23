@@ -15,13 +15,13 @@ class IndexView extends sb_View_XHTML{
 	/**
 	 * Override the default css style sheets loaded for this page.  The default is to load just app.css
 	 */
-	//protected $styles = Array('frontpage.css');
+	//public $styles = Array('frontpage.css');
 	
 	/**
 	 * This runs before the page is rendered and allows you to check args etc. 
 	 * If you return false, e.g. if certain login criteria are not met etc, the page is not rendered for the user
 	 */
-	protected function on_before_render($template){
+	public function on_before_render($template){
 		
 		//would load frontpage.css in addition to default app.css
 		//$this->styles[] = 'frontpage.css';
