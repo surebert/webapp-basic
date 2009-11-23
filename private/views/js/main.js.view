@@ -20,6 +20,10 @@ $surebert = Array(
 	"Element.prototype.getNextSibling",
 	"Element.prototype.getPreviousSibling",
     "Element.prototype.isOrHasParentOfClassName",
+	"Element.prototype.containsElement",
+	"Element.prototype.isWithin",
+	"Element.prototype.getContaining",
+	"String.prototype.md5",
 	"colors.rand",
 	"css.rules",
 	"swf",
@@ -35,7 +39,7 @@ if(!$data){
 	ob_start();
 	echo Gateway::render_view('/surebert/load/'.implode(',', $surebert));
 
-	readfile(dirname(__FILE__).'/app.js');
+	readfile(dirname(__FILE__).'/board.js');
 
 	$data = ob_get_flush();
 	App::$cache->store($key, $data);
