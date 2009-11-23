@@ -22,4 +22,4 @@ Welcome to a new surebert framework.  If you have questions you can email paul.v
 #SERVER_IP       YOURAPP
 127.0.0.1		 myapp
 
-At that point you should be ready to go
+5.  Visit your site and follow the onscreen instructions
