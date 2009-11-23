@@ -25,7 +25,11 @@ class SurebertView extends sb_View{
 	 */
 	protected function filter_output($output){
 		
-		return preg_replace("~/\*\*.*?\*/~s", "", $output);
+		if(!isset($this->request->get['sb_comments'])){
+            return preg_replace("~/\*\*.*?\*/~s", "", $output);
+        } else {
+            return $output;
+        }
 	}
 	
 	/**

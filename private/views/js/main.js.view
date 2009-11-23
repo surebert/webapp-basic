@@ -1,0 +1,46 @@
+<?php
+/**
+ * This file loads multiple surebert toolkit modules and javascript files
+ * and puts them all into one large file for faster load times
+ */
+$surebert = Array(
+
+	"sb",
+	"browser.\$_GET",
+	"effect",
+	"browser.removeSelection",
+	"browser.getScrollPosition",
+	"browser.scrollTo",
+	"Element.prototype.show",
+	"Element.prototype.hide",
+	"Element.prototype.toggle",
+	"Element.prototype.getDimensions",
+	"Element.prototype.mv",
+	"Element.prototype.getPosition",
+	"Element.prototype.getNextSibling",
+	"Element.prototype.getPreviousSibling",
+    "Element.prototype.isOrHasParentOfClassName",
+	"colors.rand",
+	"css.rules",
+	"swf",
+	"flashGate",
+	"events.keys",
+	"css.styleSheet",
+	"events.observer"
+);
+
+$key = "/js/main";
+$data = App::$cache->fetch($key);
+if(!$data){
+	ob_start();
+	echo Gateway::render_view('/surebert/load/'.implode(',', $surebert));
+
+	readfile(dirname(__FILE__).'/app.js');
+
+	$data = ob_get_flush();
+	App::$cache->store($key, $data);
+} else {
+	echo $data;
+}
+
+?>

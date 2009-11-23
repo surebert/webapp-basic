@@ -21,10 +21,7 @@ echo $this->html_head();
 	<a href="http://wiki.surebert.com" title="Visit the surebert wiki">wiki.surebert.com</a></p>
 	
 </div>
-<?php 
-echo $this->include_javascript(Array('/surebert/load/sb', 'app.js'));
-?>
-<script type="text/javascript" >
+<script type="text/javascript" src="/js/main.js">
 </script>
 </body>
 </html>
