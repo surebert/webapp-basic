@@ -9,11 +9,8 @@
  */
 
 //Define the path to the surebert framework -replace x.x with the versions you downloaded
-//define("SUREBERT_FRAMEWORK_SB_PATH", "/var/www/sbf/sb/tags/x.x");
-//define("SUREBERT_TOOLKIT_PATH", "/var/www/sbf/toolkit/tags/x.x");
-
-//you can delete the next line if not using internal roswellpark specific modules
-//define("SUREBERT_FRAMEWORK_RP_PATH", "/var/www/sbf/rp/tags/x.x");
+define("SUREBERT_FRAMEWORK_SB_PATH", "/var/www/sbf/sb/trunk");
+define("SUREBERT_TOOLKIT_PATH", "/var/www/sbf/toolkit/trunk");
 
 /**
  * You can use this space to define any globally accessible variable, constants and functions, 
@@ -80,5 +77,8 @@ App::$user->uname = 'tester';
 
 //define the application's main cacheing engine
 App::$cache = new sb_Cache_FileSystem();
+
+//define the application's main logging engine
+App::$logger = new sb_Logger_FileSystem(Array('debug'));
 
 ?>

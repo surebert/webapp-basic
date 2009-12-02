@@ -26,9 +26,15 @@ class App{
 	
 	/**
 	 * The system's main caching engine
-	 * @var sb_Cache
+	 * @var sb_Cache_Base
 	 */
 	public static $cache;
+
+	/**
+	 * The system's main logging engine
+	 * @var sb_Logger_Base
+	 */
+	public static $logger;
 
 }
 
