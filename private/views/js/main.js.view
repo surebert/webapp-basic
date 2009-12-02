@@ -41,7 +41,7 @@ $surebert = Array(
 
 $key = "/js/main";
 $data = App::$cache->fetch($key);
-if(CACHE_ENABLE && !$data){
+if(!$data || !CACHE_ENABLE){
 	ob_start();
 	echo Gateway::render_view('/surebert/load/'.implode(',', $surebert));
 
