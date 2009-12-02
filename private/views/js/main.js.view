@@ -1,4 +1,10 @@
 <?php
+define("CACHE_ENABLE", false);
+
+if(!$this->included){
+	header("Content-type: application/x-javascript");
+}
+
 /**
  * This file loads multiple surebert toolkit modules and javascript files
  * and puts them all into one large file for faster load times
@@ -23,6 +29,7 @@ $surebert = Array(
 	"Element.prototype.containsElement",
 	"Element.prototype.isWithin",
 	"Element.prototype.getContaining",
+	"String.prototype.md5",
 	"colors.rand",
 	"css.rules",
 	"swf",
@@ -34,9 +41,11 @@ $surebert = Array(
 
 $key = "/js/main";
 $data = App::$cache->fetch($key);
-if(!$data){
+if(CACHE_ENABLE && !$data){
 	ob_start();
 	echo Gateway::render_view('/surebert/load/'.implode(',', $surebert));
+
+	readfile(dirname(__FILE__).'/app.js');
 
 	$data = ob_get_flush();
 	App::$cache->store($key, $data);
