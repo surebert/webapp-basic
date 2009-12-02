@@ -3,8 +3,9 @@
 /**
  * Initializes a surebert framework project - do not edit
  *
- * @author: Paul Visco
- * @version: 3.04 10-01-2008 10-27-2009
+ * @author Paul Visco
+ * @version 3.11 10-01-2008 11-25-2009
+ * @package sb_Application
  *
  */
 
@@ -13,8 +14,6 @@
 #####################################################################
 
 ob_start();
-//replaces windows slashes that were messing up paths
-define("ROOT", str_replace('/public/gateway.php', '', str_replace("\\", "/", __FILE__)));
 
 //script start time
 $sb_start = microtime(true);
@@ -33,8 +32,9 @@ interface sb_Magic_Model{
 }
 
 /**
- * Loads the .phtml file that corresponds to the request
- * @author visco
+ * Loads the .view file that corresponds to the request
+ * @author paul.visco@roswellpark.org
+ * @package sb_View
  */
 class sb_View {
 
@@ -208,7 +208,8 @@ class sb_View {
 }
 /**
  * Models an incoming request's path and data e.g. /_surebert/custom
- * @author visco
+ * @author paul.visco@roswellpark.org
+ * @package sb_Request
  *
  */
 class sb_Request {
@@ -338,11 +339,13 @@ class sb_Request {
 
 /**
  * The main gateway
- * @author visco
+ * @author paul.visco@roswellpark.org
+ * @package sb_Application
  *
  */
 class Gateway {
 
+//Gateway::$remote_addr = isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '127.0.0.1';
 /**
  * The request path being requested
  * @var sb_Request
@@ -388,7 +391,7 @@ class Gateway {
      *
      * @var string
      */
-    public static $remote_addr;
+    public static $remote_addr = '127.0.0.1';
 
     /**
      * If the request comes from the command line
@@ -477,7 +480,19 @@ class Gateway {
 
         //see if there is an model/action possibility
         if(isset($p[0]) && isset($p[1])){
-            $model = ucwords($p[0]);
+            if(strstr($p[0], '_')){
+				$p[0] = explode("_", $p[0]);
+				$arr = Array();
+				foreach($p[0] as $s){
+					$arr[] = ucwords($s);
+
+				}
+				$model = implode("_", $arr);
+				unset($arr);
+			} else {
+				$model = ucwords($p[0]);
+			}
+
             $action = $p[1];
 
             if(class_exists($model)){
@@ -636,7 +651,7 @@ class Gateway {
         if(method_exists('App', 'set_remote_addr')) {
             self::$remote_addr = App::set_remote_addr();
         } else {
-            self::$remote_addr = isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '127.0.0.1';
+            self::$remote_addr = isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : self::$remote_addr;
         }
 
         self::$agent = (isset($_SERVER['HTTP_USER_AGENT']) && $_SERVER['HTTP_USER_AGENT'] != 'command line') ? $_SERVER['HTTP_USER_AGENT'] : self::$agent;
@@ -718,10 +733,6 @@ class Gateway {
      */
     public static function exception_handler(Exception $e){
 
-		if(in_array(ini_get('display_errors'), Array('Off', 'off', '0'))){
-			return false;
-		}
-
         $s = Gateway::$command_line ? "\n" : '<br />';
         $m = 'Code: '.$e->getCode()."\n".
             'Message: '.$e->getMessage()."\n".
@@ -743,6 +754,8 @@ if(isset($argv)) {
 
 /**
  * Used to throw custom exceptions
+ * @author paul.visco@roswellpark.org
+ * @package sb_Exception
  */
 class sb_Exception extends Exception{
 
@@ -758,6 +771,8 @@ class sb_Exception extends Exception{
 
 set_error_handler('Gateway::error_handler');
 set_exception_handler('Gateway::exception_handler');
+
+define("ROOT", str_replace('/public', '', str_replace("\\", "/", Gateway::$command_line ? $_ENV['PWD'] : $_SERVER['DOCUMENT_ROOT'])));
 
 //initialize the gateway
 Gateway::init();
