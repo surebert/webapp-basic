@@ -38,13 +38,13 @@ class SurebertView extends sb_View{
 	 */
 	protected function concat_files($files = Array()){
 		
-		$binary = preg_match("~\.(swf|gif)$~", $files[0], $match);
+		$binary = preg_match("~\.(swf|gif|png)$~", $files[0], $match);
 		
 		if($binary){
 			if($match[1] == 'swf'){
 				header("Content-type: application/x-shockwave-flash");
-			} else if($match[1] == 'gif'){
-				header("Content-type: image/gif");
+			} else if($match[1] == 'gif' || $match[1] == 'png'){
+				header("Content-type: image/".$match[1]);
 			}
 		} else {
 			$this->add_javascript_headers();
