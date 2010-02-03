@@ -1,8 +1,14 @@
 <?
-//used to load surebert modules from client with script tags or ajax
-if(substr($this->request->args[0], 0, 2) == 'sb'){
-	echo "var sbBase = '/surebert/load/';\n";
+
+$surebert = $this->request->args;
+
+if(empty($surebert)){
+
+	$surebert = Array('sb');
 }
 
-$this->concat_files($this->request->args);
+if($surebert[0] == 'sb'){
+	echo "var sbBase = '/surebert/load/';\n";
+}
+$this->concat_files($surebert);
 ?>

@@ -13,8 +13,8 @@ if(isset($this->request->get['v'])){
  * This file loads multiple surebert toolkit modules and javascript files
  * and puts them all into one large file for faster load times
  */
-$extended = Array(
-
+$surebert = Array(
+	"sb",
 	"browser.\$_GET",
 	"math.rand",
 	"effect",
@@ -46,17 +46,9 @@ $extended = Array(
 	'widget.notifier'
 );
 
-
-if(strstr(Gateway::$agent, 'MSIE')){
-
-    $base = Array("sb");
-} else {
-	$base = Array("sb");
-}
-
 echo "var sbBase = 'http://".Gateway::$http_host."/surebert/load/';\n";
 
-$surebert = array_merge($base, $extended, $this->request->args);
+$surebert = array_merge($surebert, $this->request->args);
 $this->concat_files($surebert, $version);
 
 ?>
