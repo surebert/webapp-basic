@@ -18,6 +18,7 @@ $extended = Array(
 	"browser.\$_GET",
 	"math.rand",
 	"effect",
+	"cookies",
 	"browser.removeSelection",
 	"browser.getScrollPosition",
 	"browser.scrollTo",
@@ -41,13 +42,14 @@ $extended = Array(
 	"css.styleSheet",
 	"events.observer",
 	"events.classListener",
-	"events.idListener"
+	"events.idListener",
+	'widget.notifier'
 );
 
 
 if(strstr(Gateway::$agent, 'MSIE')){
 
-    $base = Array("sb", "js1_5");
+    $base = Array("sb");
 } else {
 	$base = Array("sb");
 }
