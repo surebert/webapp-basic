@@ -1,6 +1,9 @@
 <?
-header("Content-type: application/x-javascript");
+if(!isset($this->request->get['noexpire'])){
+	header('Expires: '.gmdate('D, d M Y H:i:s \G\M\T', time() + 259200));
+}
 
+header("Content-type: application/x-javascript");
 $version = '';
 if(isset($this->request->get['v'])){
 	if(is_numeric($this->request->get['v'])){
@@ -48,5 +51,3 @@ $surebert = array_merge($surebert, $this->request->args);
 echo $this->concat_files($surebert, $version);
 
 ?>
-
-sb.ip = '<?=Gateway::$remote_addr;?>';

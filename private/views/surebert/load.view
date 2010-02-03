@@ -10,6 +10,5 @@ if(empty($surebert)){
 if($surebert[0] == 'sb'){
 	echo "var sbBase = '/surebert/load/';\n";
 }
-
-echo $this->concat_files($surebert);
+$this->concat_files($surebert);
 ?>
