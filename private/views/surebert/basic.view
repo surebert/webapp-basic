@@ -1,0 +1,62 @@
+<?
+header("Content-type: application/x-javascript");
+
+$version = '';
+if(isset($this->request->get['v'])){
+	if(is_numeric($this->request->get['v'])){
+		$version = $this->request->get['v'];
+	}
+
+}
+
+/**
+ * This file loads multiple surebert toolkit modules and javascript files
+ * and puts them all into one large file for faster load times
+ */
+$extended = Array(
+
+	"browser.\$_GET",
+	"math.rand",
+	"effect",
+	"browser.removeSelection",
+	"browser.getScrollPosition",
+	"browser.scrollTo",
+	"Element.prototype.show",
+	"Element.prototype.hide",
+	"Element.prototype.toggle",
+	"Element.prototype.getDimensions",
+	"Element.prototype.mv",
+	"Element.prototype.getPosition",
+	"Element.prototype.getNextSibling",
+	"Element.prototype.getPreviousSibling",
+    "Element.prototype.isOrHasParentOfClassName",
+	"Element.prototype.containsElement",
+	"Element.prototype.isWithin",
+	"Element.prototype.getContaining",
+	"Element.prototype.cssTransition",
+	"colors.rand",
+	"css.rules",
+	"swf",
+	"events.keys",
+	"css.styleSheet",
+	"events.observer",
+	"events.classListener",
+	"events.idListener"
+);
+
+
+if(strstr(Gateway::$agent, 'MSIE')){
+
+    $base = Array("sb", "js1_5");
+} else {
+	$base = Array("sb");
+}
+
+echo "var sbBase = 'http://".Gateway::$http_host."/surebert/load/';\n";
+
+$surebert = array_merge($base, $extended, $this->request->args);
+$this->concat_files($surebert, $version);
+
+?>
+
+sb.ip = '<?=Gateway::$remote_addr;?>';
