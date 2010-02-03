@@ -17,7 +17,6 @@ $surebert = Array(
 	"sb",
 	"browser.\$_GET",
 	"math.rand",
-	"effect",
 	"cookies",
 	"browser.removeSelection",
 	"browser.getScrollPosition",
@@ -35,21 +34,18 @@ $surebert = Array(
 	"Element.prototype.isWithin",
 	"Element.prototype.getContaining",
 	"Element.prototype.cssTransition",
-	"colors.rand",
 	"css.rules",
 	"swf",
-	"events.keys",
 	"css.styleSheet",
 	"events.observer",
 	"events.classListener",
-	"events.idListener",
-	'widget.notifier'
+	"events.idListener"
 );
 
 echo "var sbBase = 'http://".Gateway::$http_host."/surebert/load/';\n";
 
 $surebert = array_merge($surebert, $this->request->args);
-$this->concat_files($surebert, $version);
+echo $this->concat_files($surebert, $version);
 
 ?>
 

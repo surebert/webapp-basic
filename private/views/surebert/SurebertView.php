@@ -92,7 +92,7 @@ class SurebertView extends sb_View{
 		}
 
 		$surebert = $this->default_files;
-
+		$this->loaded_files = Array();
 		foreach($files as $file){
 			if($binary){
 				$surebert[] = $file;
@@ -101,28 +101,61 @@ class SurebertView extends sb_View{
 				$surebert[] = str_replace('.', '/', $file).'.js';
 			}
 		}
-
 		ob_start();
 
 		foreach($surebert as $file){
-
-			$path = $root.'/'.$file;
-
-			if(is_file($path)){
-
-				readfile($path);
-			} else {
-				echo"\nthrow('ERROR: Surebert module \"".basename($file)."\" could not be located by /surebert/load ');";
-			}
+			echo $this->grab_file($file, $root);
 		}
 
 		$js = ob_get_clean();
-		echo $js;
 
+		if(isset($this->request->get['manifest'])){
+			$m = $this->request->get['manifest'];
+			if($m == 'js'){
+				return json_encode($this->loaded_files);
+			} else {
+				return print_r($this->loaded_files, 1);
+			}
+		}
 		if($this->cache_enable){
 			$cache->store($key, $js);
 		}
 
+		return $js;
+
+	}
+
+	protected function grab_file($file, $root){
+		if(is_file($root.'/'.$file)){
+
+			$this->loaded_files[] = $file;
+
+			$file = $root.'/'.$file;
+
+			$data = file_get_contents($file);
+			if(!strstr($file, 'sb.js')){
+				preg_match_all("~sb\.include\('(.*?)'\)~", $data, $includes);
+
+				if($includes[1]){
+					$precludes = '';
+					foreach($includes[1] as $include){
+						$include = str_replace('.', '/', $include).'.js';
+						if(!in_array($include, $this->loaded_files)){
+							$precludes .= $this->grab_file($include, $root);
+						}
+					}
+
+					$data = $precludes."\n".$data;
+				}
+
+			}
+
+		} else {
+
+			echo"\nthrow('ERROR: Surebert module \"".basename($file)."\" could not be located by /surebert/load ');";
+		}
+
+		return $data;
 	}
 
 	/**
