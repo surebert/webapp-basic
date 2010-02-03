@@ -2,7 +2,7 @@
 /**
  * Creates concatenated javascript files for the surebert toolkit from the arguments it is fed
  * @author visco
- * @version 1.11 05/20/2008 02/04/2009
+ * @version 2 05/20/2008 02/03/2010
  *
  */
 class SurebertView extends sb_View{
@@ -36,7 +36,6 @@ class SurebertView extends sb_View{
 	 * @author visco
 	 */
 	protected function filter_output($output){
-
 		if(!isset($this->request->get['sb_comments'])){
             return preg_replace("~/\*\*.*?\*/~s", "", $output);
         } else {
@@ -124,7 +123,12 @@ class SurebertView extends sb_View{
 		return $js;
 
 	}
-
+	/**
+	 * Grabs a file
+	 * @param string $file The file to load
+	 * @param string $root The root to load
+	 * @return string The file data
+	 */
 	protected function grab_file($file, $root){
 		if(is_file($root.'/'.$file)){
 
@@ -134,7 +138,7 @@ class SurebertView extends sb_View{
 
 			$data = file_get_contents($file);
 			if(!strstr($file, 'sb.js')){
-				preg_match_all("~sb\.include\('(.*?)'\)~", $data, $includes);
+				preg_match_all("~sb\.include\([\"'](.*?)[\"']~", $data, $includes);
 
 				if($includes[1]){
 					$precludes = '';
