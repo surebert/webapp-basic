@@ -54,14 +54,18 @@ class SurebertView extends sb_View{
 			array_unshift($files, 'js1_5');
 		}
 
-		$version = !empty($version) ? $version : SUREBERT_TOOLKIT_PATH;
+        $root = false;
+        if(empty($version)){
+            $root = SUREBERT_TOOLKIT_PATH;
+        } else if(is_numeric($version)){
+            $root = $this->toolkit_root.'/tags/'.$version;
+        } else {
+            $root = $this->toolkit_root.'/'.$version;
+        }
 
-		$tag = $this->toolkit_root.'/tags/'.$version;
-		if(is_numeric($version) && is_dir($tag)){
-			$root = $this->toolkit_root.'tags/'.$version;
-		} else {
-			$root = $this->toolkit_root.'trunk';
-		}
+        if(!is_dir($root)){
+            $root = $this->toolkit_root.'trunk';
+        }
 
 		$this->version = basename($root);
 
