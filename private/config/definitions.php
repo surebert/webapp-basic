@@ -8,9 +8,9 @@
  * </code>
  */
 
-//Define the path to the surebert framework -replace x.x with the versions you downloaded
-//define("SUREBERT_FRAMEWORK_SB_PATH", "/var/www/sbf/sb/tags/x.x");
-//define("SUREBERT_TOOLKIT_PATH", "/var/www/sbf/toolkit/tags/x.x");
+//Define the path to the surebert framework -replace trunk with tags/x.x with the versions you want
+define("SUREBERT_FRAMEWORK_SB_PATH", "/var/www/sbf/sb/trunk");
+define("SUREBERT_TOOLKIT_PATH", "/var/www/sbf/toolkit/trunk");
 
 /**
  * You can use this space to define any globally accessible variable, constants and functions, 

@@ -1,12 +1,11 @@
 <? 
 /**
  * .view templates should have as little PHP processing as possible, you should be
- * doing the "heavy lifting" in the models methods or ViewClasses so that the .view template 
- * pages are easy to edit from an HTML editors perspective
+ * the business logic should in the models methods and the user input/output handled in the Contollers
  */
 
  //set $this type for code completion in netbeans
-/* @var $this IndexView */
+/* @var $this IndexController */
 echo $this->html_head();
 
 ?>
@@ -15,13 +14,12 @@ echo $this->html_head();
 	<h1>Getting Started</h1>
 	
 	<img src="http://www.surebert.com/media/images/banner.png" alt="surebert banner" />
-	<p>This is just a demo homepage.  Once you read these instructions you can replace the contents of this page with your own homepage.  It is found at /private/views/index.view</p>
-	<p>There is a demo body based event handler in app.js that notifies you of the type of node you clicked when you click one.  You can use it as the basis for your own event handling scripts.</p>
-	<p>Need help using the surebert framework?  Visit <a href="http://www.surebert.com" title="Visit the home of the surebert framework">surebert.com</a> or go directly to the wiki 
+	<p>This is just a demo homepage.  You can replace the contents of this page with your own homepage.  It is found at /private/views/index.view</p>
+	<p>Need help using the surebert framework?  Visit <a href="http://www.surebert.com" title="Visit the home of the surebert framework">surebert.com</a> or go directly to the wiki
 	<a href="http://wiki.surebert.com" title="Visit the surebert wiki">wiki.surebert.com</a></p>
 	
 </div>
-<script type="text/javascript" src="/js/main.js">
-</script>
+<script type="text/javascript" src="/surebert/basic"></script>
+<script type="text/javascript" src="/js/app.js"></script>
 </body>
 </html>

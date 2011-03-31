@@ -9,7 +9,6 @@
  */
 class App{
 	
-	
 	/**
 	 * The application user (sb_User or an extension of it)
 	 *
