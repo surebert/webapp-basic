@@ -1,0 +1,4 @@
+<?
+header("HTTP/1.0 404 Not Found");
+echo '<div style="text-align:center;background-color:red;padding:10px;margin:10px;color:white;font-weight:bold;"><h1>404: Requested Data Does Not Exist ;(</h1></div>';
+?>
