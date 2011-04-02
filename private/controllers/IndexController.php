@@ -24,7 +24,7 @@ class IndexController extends sb_Controller_HTML5{
 		//if(isset($this->request->post['test'])){//do somthing}
 	}
 
-	public function not_found($template){
+	public function not_found(){
 		parent::not_found();
 	}
 }
