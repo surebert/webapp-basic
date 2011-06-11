@@ -21,10 +21,15 @@
             #wrapper{
                 width:640px;
                 margin:20px auto 20px auto;
+                padding:20px;
                 background-color:#fff;
                 -border-radius:15px;
                 -moz-border-radius:15px;
                 -webkit-border-radius:15px;
+            }
+            
+            #wrapper_inner{
+                margin:10px;
             }
 
             #logo{
@@ -59,8 +64,10 @@
     <body>
         <div id="wrapper">
             <h1>Your Surebert Framework Project</h1>
-            <a href="http://surebert.com"><img id="logo" src="http://surebert.com/media/images/banner.png" width="600px" height="97px" /></a>
-            <p>This page is ugly on purpose.  You should get rid of it.</p>
+             <a href="http://surebert.com"><img id="logo" src="http://surebert.com/media/images/banner.png" width="600px" height="97px" /></a>
+            
+            <div id="wrapper_inner">
+           <p>This page is ugly on purpose.  You should get rid of it.</p>
             <ol>
                 <li>
                     <p>Make sure you have a copy of the surebert framework on your server.  It is usually found in <b>/var/www/sbf</b>  For more info see the <a href="http://wiki.surebert.com/index.php/Framework:SBF_Deployment_Guide">surebert framework deployment guide</a>.</p>
@@ -83,7 +90,7 @@ define("SUREBERT_FRAMEWORK_SB_PATH", "/var/www/sbf/sb/tags/1.65");
             
             <p>After that, your site should now be ready and you can refresh this page!  Read up on the surebert framework and toolkit @ <a href="http://surebert.com">surebert.com</a> and on the <a href="http://wiki.surebert.com">surebert wiki</a> </p>
             <p> If you have questions you can email paul.visco AT roswellpark.org</p>
-             
+            </div> 
         </div>
     </body>
 </html>
