@@ -18,7 +18,8 @@ class IndexController extends sb_Controller_HTML5{
 	 */
 	public function on_before_render(){
 
-		$this->styles[] = 'app.css';
+		//include additional css files
+		//$this->styles[] = 'some_file.css';
 
 		//do something if post data is set
 		//if(isset($this->request->post['test'])){//do somthing}
