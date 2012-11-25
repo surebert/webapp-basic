@@ -1,3 +1,3 @@
 <?php
-require_once('../vendor/sb/Application/Gateway.php');
+require_once('../vendor/surebert/src/sb/Application/Gateway.php');
 ?>
