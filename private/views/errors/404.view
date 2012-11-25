@@ -1,4 +1,5 @@
 <?
+namespace sb;
 if(Gateway::$command_line){
 	echo "Resource '".Gateway::$request->request."' not found ;(\n";
 	return;

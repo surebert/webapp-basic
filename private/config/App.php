@@ -7,34 +7,38 @@
  * @author visco
  *
  */
+
 class App{
-	
+
 	/**
-	 * The application user (sb_User or an extension of it)
-	 *
-	 * @var sb_User
-	 */
+	* The application user (sb_User or an extension of it)
+	*
+	* @var sb_User
+	*/
 	public static $user;
-	
+
 	/**
-	 * The application db connection, they may be named if there are more than one.
-	 *
-	 * @var sb_PDO
-	 */
+	* The application db connection, they may be named if there are more than one.
+	*
+	* @var sb_PDO
+	*/
 	public static $db;
-	
+
 	/**
-	 * The system's main caching engine
-	 * @var sb_Cache_Base
-	 */
+	* The system's main caching engine
+	* @var sb_Cache_Base
+	*/
 	public static $cache;
 
 	/**
-	 * The system's main logging engine
-	 * @var sb_Logger_Base
-	 */
+	* The system's main logging engine
+	* @var sb_Logger_Base
+	*/
 	public static $logger;
+	
+	public static function get_test(){
+		
+	}
 
 }
-
 ?>
