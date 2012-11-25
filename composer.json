@@ -1,12 +1,12 @@
 {
     "require": {
-        "surebert" : "1.0"
+        "surebert/sbf" : "1.0"
     },
     "repositories": [
         {
             "type": "package",
             "package": {
-                "name": "surebert",
+                "name": "surebert/sbf",
                 "version": "1.0",
                 "autoload": {
                     "psr-0": {
