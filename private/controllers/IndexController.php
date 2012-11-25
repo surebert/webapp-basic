@@ -26,8 +26,8 @@ class IndexController extends \sb\Controller\HTML\HTML5{
 	 
 	}
 
-	public function not_found(){
-		parent::not_found();
+	public function notFound(){
+		parent::notFound();
 	}
 }
 ?>
