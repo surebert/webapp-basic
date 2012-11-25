@@ -322,7 +322,10 @@ class Gateway
         spl_autoload_extensions('.php');
         spl_autoload_register("sb\Gateway::autoload");
         
-        require_once ROOT . '/vendor/autoload.php';
+        $composer_autoload = ROOT . '/vendor/autoload.php';
+        if(file_exists($composer_autoload)){
+            require_once $composer_autoload;
+        }
         
         self::$remote_addr = isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : self::$remote_addr;
 
