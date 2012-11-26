@@ -1,8 +1,22 @@
 {
     "require": {
-        "surebert/sbf" : "1.0"
+        "surebert/sbf" : "1.0",
+        "surebert/toolkit" : "4.9974"
     },
     "repositories": [
+     {
+            "type": "package",
+            "package": {
+                "name": "surebert/toolkit",
+                "version": "4.9974",
+                "source": {
+                    "url": "https://github.com/surebert/surebert-toolkit.git",
+                    "type": "git",
+                    "reference": "4.9974"
+                }
+            }
+        },
+    
         {
             "type": "package",
             "package": {
