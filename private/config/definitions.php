@@ -8,12 +8,9 @@
 	define('LOG_USER_ACTIONS', true);
  * </code>
  */
-//Define the path to the surebert framework -replace trunk with tags/x.x with the versions you want
-define("SUREBERT_FRAMEWORK_SB_PATH", "../vendor/sb");
-define("SUREBERT_TOOLKIT_PATH", "/var/www/sbf/toolkit/trunk");
-
 
 /**
+ * GLOBAL FUNCTIONS
 * You can use this space to define any globally accessible variable, constants and functions, 
 * in addition to defining static props of the App class which are avaible in any scope.  
 */
