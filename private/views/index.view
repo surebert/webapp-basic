@@ -1,4 +1,4 @@
-<? 
+<?php
 /**
  * .view templates should have as little PHP processing as possible, you should be
  * the business logic should in the models methods and the user input/output handled in the Contollers
@@ -12,8 +12,6 @@ echo $this->htmlHead();
 <body>
 <div id="wrapper">
 	<h1>Getting Started</h1>
-	<?
-        ?>
 	<img src="http://www.surebert.com/media/images/banner.png" alt="surebert banner" />
 	<p>This is just a demo homepage.  You can replace the contents of this page with your own homepage.  It is found at /private/views/index.view</p>
 	<p>Need help using the surebert framework?  Visit <a href="http://www.surebert.com" title="Visit the home of the surebert framework">surebert.com</a> or go directly to the wiki
