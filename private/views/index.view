@@ -5,9 +5,9 @@
  */
 
  //set $this type for code completion in netbeans
-/* @var $this IndexController */
-echo $this->htmlHead();
+/* @var $this \Controllers\Index */
 
+echo $this->htmlHead();
 ?>
 <body>
 <div id="wrapper">

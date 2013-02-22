@@ -4,10 +4,8 @@
  * GLOBAL CONSTANTS
  * Here you can put global constants which do not change during an applications
  * execution and are used in all scopes of the application
- * <code>
-	define('LOG_USER_ACTIONS', true);
- * </code>
  */
+define("SITE_NAME", "My Site");
 
 /**
  * GLOBAL FUNCTIONS

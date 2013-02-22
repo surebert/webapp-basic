@@ -1,5 +1,5 @@
-<?php
-namespace sb;
+<?
+use \sb\Gateway as Gateway;
 if(Gateway::$command_line){
 	echo "Resource '".Gateway::$request->request."' not found ;(\n";
 	return;
