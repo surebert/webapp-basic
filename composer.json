@@ -1,10 +1,34 @@
 {
     "require": {
-        "surebert/sbf" : "1.0",
-        "surebert/toolkit" : "4.9974"
+        "surebert/toolkit": "4.9974",
+        "surebert/sbf": "1.0",
+        "roswell/sbf": "1.0"
+    },
+    "autoload": {
+        "psr-0": {
+            "Models" : ["private"],
+            "Controllers" : ["private"]
+    }
     },
     "repositories": [
-     {
+{
+            "type": "package",
+            "package": {
+                "name": "roswell/sbf",
+                "version": "1.0",
+                "autoload": {
+                    "psr-0": {
+                        "rp": "src/"
+                    }
+                },
+                "source": {
+                    "url": "https://svn2.roswellpark.org/repos/sbf-rp",
+                    "type": "svn",
+                    "reference": "trunk"
+                }
+            }
+        },
+        {
             "type": "package",
             "package": {
                 "name": "surebert/toolkit",
@@ -16,7 +40,6 @@
                 }
             }
         },
-    
         {
             "type": "package",
             "package": {
