@@ -1,5 +1,6 @@
 <?php
 
+
 /**
  * GLOBAL CONSTANTS
  * Here you can put global constants which do not change during an applications
@@ -25,7 +26,7 @@ define("SITE_NAME", "My Site");
 
 	//here you should instantiate your db connections
 	try{
-		App::$db = new sb_PDO("mysql:dbname=".DB_NAME.";host=".DB_HOST.";", DB_USER, DB_PASS);
+		App::$db = new sb_PDO("mysql:dbname=".DB_NAME.";host=".DB_HOST.";charset=utf8", DB_USER, DB_PASS);
 	} catch(Exception $e){
 		die('Could not connect to database ;(');
 	}
