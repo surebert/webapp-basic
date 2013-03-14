@@ -56,7 +56,11 @@ new sb_Session_Memcache('localhost', 11211);
 
 </code>
 */
-session_start();
+
+//session handler
+if (!headers_sent()) {
+    session_start();
+}
 
 /**
  * ASSIGN APP's OTHER STATIC PROPERTIES HERE
