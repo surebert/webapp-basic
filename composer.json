@@ -37,7 +37,7 @@
                 "source": {
                     "url": "https://github.com/surebert/surebert-framework.git",
                     "type": "git",
-                    "reference": "origin/namespaced"
+                    "reference": "origin/master"
                 }
             }
         }
