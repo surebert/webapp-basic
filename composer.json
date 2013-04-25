@@ -1,6 +1,6 @@
 {
     "require": {
-        "surebert/toolkit": "4.9974",
+        "surebert/toolkit": "4.9977",
         "surebert/sbf": "1.0"
     },
     "autoload": {
@@ -16,11 +16,11 @@
             "type": "package",
             "package": {
                 "name": "surebert/toolkit",
-                "version": "4.9974",
+                "version": "4.9977",
                 "source": {
                     "url": "https://github.com/surebert/surebert-toolkit.git",
                     "type": "git",
-                    "reference": "4.9974"
+                    "reference": "4.9977"
                 }
             }
         },
