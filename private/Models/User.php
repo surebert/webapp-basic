@@ -1,7 +1,7 @@
 <?php
 namespace Models;
 
-class User extends \rp\Directory\Person{
+class User{
 
 	/**
 	 * If the user is acting as themselves or delegating as another user
