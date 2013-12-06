@@ -12,5 +12,12 @@
             "email": "paulsidekick@gmail.com"
         }
     ],
-    "minimum-stability": "dev"
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-0": {
+            "Models": ["private"],
+            "Controllers": ["private"],
+            "Traits": ["private"]
+        }
+    }
 }
