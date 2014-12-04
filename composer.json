@@ -2,8 +2,7 @@
     "name": "surebert/webapp-basic",
     "description": "a vanilla surebert web app",
     "require": {
-        "surebert/framework": "dev-master",
-	"surebert/toolkit" : "dev-master"
+        "surebert/framework": "dev-master"
     },
     "license": "MIT",
     "authors": [
