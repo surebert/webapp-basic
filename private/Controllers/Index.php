@@ -20,7 +20,15 @@ class Index extends \sb\Controller\HTML\HTML5{
 			'app.css'
 		);
 	}
-
+    
+    /**
+     * The index page of the site
+     * @servable true
+     */
+    public function index(){
+        return $this->renderView('/home/index');
+    }
+    
 	/**
 	 * Fired when no matching method/view is found for the request
 	 */

@@ -9,6 +9,15 @@
 define("SITE_NAME", "My Site");
 
 /**
+ * Determines if the gateway allows direct rendering of views, you set to true
+ * if you want to use the index controller as the implied controller when 
+ * visiting a view path directly
+ * e.g. /person/run would render /person/run.view using the 
+ * Index Controller without having to expressly have a method to render it
+ */
+\sb\Gateway::$allow_direct_view_rendering = false;
+
+/**
  * GLOBAL FUNCTIONS
 * You can use this space to define any globally accessible variable, constants and functions, 
 * in addition to defining static props of the App class which are avaible in any scope.  
@@ -19,17 +28,11 @@ define("SITE_NAME", "My Site");
 * Here you can put global constants which do not change during an applications
 * execution and are used in all scopes of the application
 * <code>
-	define('DB_HOST', 'HOST');
-	define('DB_NAME', 'DB');
-	define('DB_USER', 'USER');
-	define('DB_PASS', 'PASS');
-
-	//here you should instantiate your db connections
-	try{
-		App::$db = new sb_PDO("mysql:dbname=".DB_NAME.";host=".DB_HOST.";charset=utf8", DB_USER, DB_PASS);
-	} catch(Exception $e){
-		die('Could not connect to database ;(');
-	}
+	try {
+        App::connectDb("mysql:dbname=".$dbname.";host=".$dbname.";charset=utf8", $db_user, $db_pass, [PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8' COLLATE 'utf8_general_ci'"]);
+    } catch (\PDO\Exception $e) {
+        die("Could not connect to DB ;(");
+    }
 * </code>
 */
 
@@ -41,6 +44,11 @@ define("SITE_NAME", "My Site");
 * 
 */
 
+//used to dump variables to a browser in a human readible way with whitespace
+function print_raw($x){
+    echo '<pre>'.print_r($x, 1).'</pre>';
+}
+
 /**
 * SET UP SESSIONS HANDLER HERE
 * Set up the session handler if using a custom one, by default filesystem sessions are used
@@ -49,10 +57,10 @@ define("SITE_NAME", "My Site");
 session_start();
 
 //or use mysql sessions
-new sb_Session_Mysql(App::$db);
+new \sb\Session\Mysql(App::$db);
 
 //or use memcache sessions
-new sb_Session_Memcache('localhost', 11211);
+new \sb\Session\Memcache('localhost', 11211);
 
 </code>
 */
@@ -71,12 +79,12 @@ if (!headers_sent()) {
  * 
 <code>
 //define the App user
-App::$user = new sb_User();
+App::$user = new \sb\User();
 App::$user->uname = 'tester';
 </code>
  */
 
-//define the application's main cacheing engine
+//define the application's main caching engine
 App::$cache = new \sb\Cache\FileSystem();
 
 //define the application's main logging engine
@@ -84,4 +92,3 @@ App::$logger = new \sb\Logger\FileSystem();
 
 \sb\Application\Debugger::init();
 
-?>
