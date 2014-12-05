@@ -2,7 +2,7 @@
     "name": "surebert/webapp-basic",
     "description": "a vanilla surebert web app",
     "require": {
-        "surebert/framework": "1.9.0-beta"
+        "surebert/framework": "dev-1.9.0-beta"
     },
     "license": "MIT",
     "authors": [
