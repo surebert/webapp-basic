@@ -1,6 +1,5 @@
 <?php
 
-
 /**
  * GLOBAL CONSTANTS
  * Here you can put global constants which do not change during an applications
@@ -19,52 +18,55 @@ define("SITE_NAME", "My Site");
 
 /**
  * GLOBAL FUNCTIONS
-* You can use this space to define any globally accessible variable, constants and functions, 
-* in addition to defining static props of the App class which are avaible in any scope.  
-*/
+ * You can use this space to define any globally accessible variable, constants and functions, 
+ * in addition to defining static props of the App class which are avaible in any scope.  
+ */
+/**
+ * DATABASE CONNECTIONS
+ * Here you can connect to the db.  If you don't need the DB connection for every request, you 
+ * could instead create an App class method for connecting and call it only as needed
+ * <code>
+ * //example mysql pdo constructor
+  try {
+    //pdo_attributes to tell PDO to use utf for communicating data with mysql
+    $pdo_attributes = [PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8' COLLATE 'utf8_general_ci'"];
+    //connect to the db
+    App::$db = new \sb\PDO\Debugger("mysql:dbname=".$db_name.";host=".$db_host, $db_user, $db_pass, $pdo_attributes);
+  } catch (\PDO\Exception $e) {
+    //you could render a view, etc instead.
+    //To see the actual you could use print_r on the Exception $e
+    die("Could not connect to DB ;(");
+  }
+ * </code>
+ */
 
 /**
-* DATABASE CONNECTIONS
-* Here you can put global constants which do not change during an applications
-* execution and are used in all scopes of the application
-* <code>
-	try {
-        App::connectDb("mysql:dbname=".$dbname.";host=".$dbname.";charset=utf8", $db_user, $db_pass, [PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8' COLLATE 'utf8_general_ci'"]);
-    } catch (\PDO\Exception $e) {
-        die("Could not connect to DB ;(");
-    }
-* </code>
-*/
-
-/**
-* GLOBAL FUNCTIONS
-* Example global function prints an object inside of pre tags for easy debugging with line returns.  You should not have very
-* many of these.  Think, what do you need to run everywhere.  Everything is better as static methods on helper classes
-* as they only load when needed instead of always loading.
-* 
-*/
-
+ * GLOBAL FUNCTIONS
+ * Example global function prints an object inside of pre tags for easy debugging with line returns.  You should not have very
+ * many of these.  Think, what do you need to run everywhere.  Everything is better as static methods on helper classes
+ * as they only load when needed instead of always loading.
+ * 
+ */
 //used to dump variables to a browser in a human readible way with whitespace
-function print_raw($x){
-    echo '<pre>'.print_r($x, 1).'</pre>';
+function print_raw($x) {
+    echo '<pre>' . print_r($x, 1) . '</pre>';
 }
 
 /**
-* SET UP SESSIONS HANDLER HERE
-* Set up the session handler if using a custom one, by default filesystem sessions are used
-<code>
-//use plain old sessions with
-session_start();
+ * SET UP SESSIONS HANDLER HERE
+ * Set up the session handler if using a custom one, by default filesystem sessions are used
+  <code>
+  //use plain old sessions with
+  session_start();
 
-//or use mysql sessions
-new \sb\Session\Mysql(App::$db);
+  //or use mysql sessions
+  new \sb\Session\Mysql(App::$db);
 
-//or use memcache sessions
-new \sb\Session\Memcache('localhost', 11211);
+  //or use memcache sessions
+  new \sb\Session\Memcache('localhost', 11211);
 
-</code>
-*/
-
+  </code>
+ */
 //session handler
 if (!headers_sent()) {
     session_start();
@@ -77,13 +79,12 @@ if (!headers_sent()) {
  * comments on the properties of App, the code completion will be available in eclipse/zend studio
  * Example include, the application cache and your database connections.
  * 
-<code>
-//define the App user
-App::$user = new \sb\User();
-App::$user->uname = 'tester';
-</code>
+  <code>
+  //define the App user
+  App::$user = new \sb\User();
+  App::$user->uname = 'tester';
+  </code>
  */
-
 //define the application's main caching engine
 App::$cache = new \sb\Cache\FileSystem();
 
@@ -91,4 +92,3 @@ App::$cache = new \sb\Cache\FileSystem();
 App::$logger = new \sb\Logger\FileSystem();
 
 \sb\Application\Debugger::init();
-
