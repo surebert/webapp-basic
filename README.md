@@ -41,5 +41,3 @@ If serving with apache add the site to your httpd.conf or httpd-vhosts.conf file
 ```
 
 For more information see the wiki on gitlab https://gitlab.com/paulvisco/surebert-framework/wikis/home
-
-
