@@ -3,6 +3,7 @@
     "description": "a vanilla surebert web app",
     "homepage": "https://gitlab.com/paulvisco/webapp-basic",
     "require": {
+        "php": ">=5.6",
         "surebert/framework": "dev-master"
     },
     "license": "MIT",
@@ -13,9 +14,6 @@
         }
     ],
     "minimum-stability": "dev",
-    "require": {
-        "php": ">=5.6"
-    },
     "autoload": {
         "psr-0": {
             "Models": ["private"],
