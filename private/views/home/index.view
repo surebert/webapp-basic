@@ -12,7 +12,7 @@ echo $this->htmlHead();
 <body>
 <div id="wrapper">
 	<h1>Getting Started</h1>
-	<img src="https://toolkit.surebert.org/media/images/banner.png" alt="surebert banner" />
+	<img src="https://surebert.org/media/images/banner.png" alt="surebert banner" />
 	<p>This is just a demo homepage.  You can replace the contents of this page with your own homepage.  It is found at /private/views/home/index.view</p>
 	<p>Need help using the surebert framework?  Visit <a href="https://wiki.surebert.com/index.php/Framework:Application" title="Visit the surebert wiki">wiki.surebert.com</a></p>
 	
