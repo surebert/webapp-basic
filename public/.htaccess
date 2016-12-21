@@ -14,14 +14,6 @@ RewriteRule .* index.php [L]
 ## PHP vars        ##
 #####################
 
-php_flag display_errors 1
-php_value error_reporting 6143
-php_flag short_open_tag 1
-php_flag magic_quotes_gpc 0
-
-php_flag  log_errors on
-#php_value error_log  /absolute/path/to/php_error.log
-
 ##needed for flash uploads to work on mac
 php_value session.name SBF_ID
 
@@ -30,7 +22,7 @@ php_value upload_max_filesize 10M
 
 ### file types to use as directory indexes
 <IfModule mod_dir.c>
-DirectoryIndex gateway.php index.php index.html index.htm
+DirectoryIndex index.php index.html index.htm
 </IfModule>
 
 #set default charset
